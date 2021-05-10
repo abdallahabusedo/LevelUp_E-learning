@@ -2,62 +2,48 @@ import React, { Component } from 'react';
 import NavigationBar from "../../components/navComponent";
 
 import { Link } from 'react-router-dom';
-import { auth , provider } from '../../services/firebase';
+import { GoogleAuth , userAuth } from '../../services/Authentication';
 
 import "../../assets/styles/Form.css";
 export default class SignIn extends Component {
 
   constructor(props)
   {
-    super(props);
-    this.state = {
-        email:'',
-        password:'',
-    };
+      super(props);
+      this.state = {
+          email:'',
+          password:'',
+      };
   }
 
   handleChange = ( event ) => {
-    let name = event.target.name , value = event.target.value;
-    this.setState({ [name]:value } );
-    console.log(this.state);
+      let name = event.target.name , value = event.target.value;
+      this.setState({ [name]:value } );
   }
 
   handleSubmit = ( event ) => {
-    event.preventDefault();
-    console.log(event.target.name);
+      event.preventDefault();
+      console.log(event.target.name);
 
-    if( event.target.name === "userAuth") {
-      let { email , password } = this.state;
-      this.props.history.push('/');
+      if( event.target.name === "userAuth") {
+          let { email , password } = this.state;
+          userAuth( email , password ).then( () => {
+              console.log("success");
+              this.props.history.push('/');
+          })
+          .catch(err => {
+              alert(err.message);
+          });
+      } else if( event.target.name === "googleAuth") {
 
-      /*
-      auth.signInWithEmailAndPassword (this.state.email,this.state.password)
-      .then( () => {
-        this.props.history.push('/');
-      })
-      .catch(err => {
-          alert(err.message);
-      });*/
-
-    } else if( event.target.name === "googleAuth") {
-      let { email , password } = this.state;
-      this.props.history.push('/');
-
-      /*
-      provider.addScope('profile');
-      provider.addScope('email');
-      auth.signInWithPopup(provider)
-      .then((result) => {
-    
-        var credential = result.credential;
-        var token = credential.accessToken;
-        var user = result.user;
-    
-      }).catch(err => {
-        alert(err.message);
-      });*/
-    } 
-  }
+          GoogleAuth().then( () => {
+              console.log("success");
+              this.props.history.push("/");
+          }).catch ( err => {
+              console.log( err.message );
+          });
+      } 
+  } 
 
   render() {
     return (

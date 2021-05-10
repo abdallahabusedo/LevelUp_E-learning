@@ -4,16 +4,16 @@ export default class Home extends Component {
   render() {
     return (
       <div> 
-        <header class="page-header">
+        <header className="page-header">
           <NavigationBar/>
         </header>
-        <content>
+        <section>
           <div>
             <h1>A large selection of courses</h1>
             <p>Choose from 10 online video courses with new additions published every month</p>
           </div>
 
-        </content>
+        </section>
       </div>
     )
   }
