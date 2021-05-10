@@ -1,11 +1,9 @@
 import './assets/styles/App.css';
+import createRoutes from './navigation/routes.js';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Level Up Elearning</h1>
-      
-    </div>
+    <div className="App"> {createRoutes()} </div>
   );
 }
 
