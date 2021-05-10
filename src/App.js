@@ -1,10 +1,9 @@
 import './assets/styles/App.css';
-
+import Profile from "./pages/Profile";
 function App() {
   return (
     <div className="App">
-      <h1>Level Up Elearning</h1>
-      
+      <Profile />
     </div>
   );
 }
