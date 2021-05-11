@@ -74,7 +74,7 @@ const UserForm = (props) => {
       <div className="form-group input-group textBoxMa">
         <div className="input-group-prepend ">
           <div className="input-group-text userIcon">
-            <i class="fab fa-github"></i>
+            <i className="fab fa-github"></i>
           </div>
         </div>
         <input
@@ -89,7 +89,7 @@ const UserForm = (props) => {
       <div className="form-group input-group textBoxMa">
         <div className="input-group-prepend ">
           <div className="input-group-text userIcon">
-            <i class="fab fa-linkedin"></i>
+            <i className="fab fa-linkedin"></i>
           </div>
         </div>
         <input

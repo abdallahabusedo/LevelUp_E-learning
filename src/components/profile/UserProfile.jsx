@@ -16,21 +16,19 @@ const UserProfile = () => {
   };
   return (
     <>
-      <div class="container py-4">
-        <div class="p-10 mb-4 bg-light rounded-3">
-          <div class="container-fluid py-5">
-            <h1 class="display-10 fw-bold">Profile Page</h1>
+      <div className="container py-4">
+        <div className="p-10 mb-4 bg-light rounded-3">
+          <div className="container-fluid py-5">
+            <h1 className="display-10 fw-bold">Profile Page</h1>
           </div>
         </div>
 
-        <div class="row align-items-md-stretch">
-          <div class="col-md-5">
-            <div class="h-100 p-5 text-white bg-dark rounded-3">
-              <UserImage />
-            </div>
+        <div className="row align-items-md-stretch">
+          <div className="col-md-5">
+            <div className="h-100 p-5 text-white bg-dark rounded-3"></div>
           </div>
-          <div class="col-md-7">
-            <div class="h-100 p-5 bg-light border rounded-3">
+          <div className="col-md-7">
+            <div className="h-100 p-5 bg-light border rounded-3">
               <UserForm AddOrEdit={AddOrEdit} />
             </div>
           </div>
