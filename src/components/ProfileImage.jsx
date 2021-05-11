@@ -7,6 +7,18 @@ class ProfileImage extends Component {
     this.state = {};
   }
 
+  handleChange = (e) => {
+    console.log(this.state.agreeTerms);
+
+    let target = e.target;
+    let value = target.type === "checkbox" ? target.checked : target.value;
+    let name = target.name;
+    this.setState({
+      [name]: value,
+    });
+    console.log(this.state);
+  };
+
   render() {
     return (
       <div>
@@ -21,7 +33,7 @@ class ProfileImage extends Component {
               name="username"
               type="text"
               value={this.props.username}
-              onChange={this.handleInputChange}
+              onChange={this.onChange}
             />
           </label>
           <br />
@@ -31,7 +43,7 @@ class ProfileImage extends Component {
               name="job"
               type="text"
               value={this.props.job}
-              onChange={this.handleInputChange}
+              onChange={this.onChange}
             />
           </label>
           <br />
@@ -41,7 +53,7 @@ class ProfileImage extends Component {
               name="email"
               type="text"
               value={this.props.email}
-              onChange={this.handleInputChange}
+              onChange={this.onChange}
             />
           </label>
           <br />
@@ -51,7 +63,7 @@ class ProfileImage extends Component {
               name="Bio"
               type="text    "
               value={this.props.Bio}
-              onChange={this.handleInputChange}
+              onChange={this.onChange}
             />
           </label>
           <br />
@@ -61,7 +73,7 @@ class ProfileImage extends Component {
               name="LinkGitHub"
               type="text"
               value={this.props.LinkGitHub}
-              onChange={this.handleInputChange}
+              onChange={this.onChange}
             />
           </label>
           <br />
@@ -71,7 +83,7 @@ class ProfileImage extends Component {
               name="LinkLinkedIn"
               type="text"
               value={this.props.LinkLinkedIn}
-              onChange={this.handleInputChange}
+              onChange={this.onChange}
             />
           </label>
           <button>Save</button>
