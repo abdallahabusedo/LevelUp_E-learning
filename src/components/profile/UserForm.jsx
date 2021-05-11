@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./../assets/styles/profile.css";
+
 const UserForm = (props) => {
   const initialState = {
     username: "",

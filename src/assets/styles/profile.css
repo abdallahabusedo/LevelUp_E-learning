@@ -7,3 +7,8 @@
 .inputText{
     width:200px
 }
+.ImageDiv{
+   width: 14rem;
+   height: 14rem;
+    border-radius: 100%;
+}

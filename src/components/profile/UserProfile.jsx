@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import UserForm from "./UserForm";
-import { database } from "./../services/firebase";
+import { database } from "../../services/firebase";
+import UserImage from "./UserImage";
 
 const UserProfile = () => {
-  var [contactsObject, setContactsObject] = useState({});
-
   const AddOrEdit = (obj) => {
     database
       .ref("user")
@@ -26,7 +25,9 @@ const UserProfile = () => {
 
         <div class="row align-items-md-stretch">
           <div class="col-md-5">
-            <div class="h-100 p-5 text-white bg-dark rounded-3"></div>
+            <div class="h-100 p-5 text-white bg-dark rounded-3">
+              <UserImage />
+            </div>
           </div>
           <div class="col-md-7">
             <div class="h-100 p-5 bg-light border rounded-3">
