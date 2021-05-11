@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavigationBar from "../../components/navComponent";
 
 import { Link } from 'react-router-dom';
-import { createUser } from '../../services/Authentication';
+import { createUser , setUserData } from '../../services/Authentication';
 
 import "../../assets/styles/Form.css";
 export default class SignUp extends Component {
@@ -25,8 +25,10 @@ export default class SignUp extends Component {
       event.preventDefault();
       let { email , password } = this.state;
       createUser(email,password)
-      .then( () => {
+      .then( (result) => {
           console.log("success");
+          setUserData(result);
+          this.props.history.push('/user/profile');
       })
       .catch( err => {
           console.log(err);

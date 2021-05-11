@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavigationBar from "../../components/navComponent";
 
 import { Link } from 'react-router-dom';
-import { GoogleAuth , userAuth } from '../../services/Authentication';
+import { GoogleAuth , userAuth , setUserData } from '../../services/Authentication';
 
 import "../../assets/styles/Form.css";
 export default class SignIn extends Component {
@@ -24,21 +24,23 @@ export default class SignIn extends Component {
   handleSubmit = ( event ) => {
       event.preventDefault();
       console.log(event.target.name);
-
+      
+      let {email , password} = this.state;
       if( event.target.name === "userAuth") {
-          let { email , password } = this.state;
-          userAuth( email , password ).then( () => {
+          userAuth( email , password ).then( (result) => {
               console.log("success");
-              this.props.history.push('/');
+              setUserData(result);
+              this.props.history.push('/user/profile');
           })
           .catch(err => {
               alert(err.message);
           });
       } else if( event.target.name === "googleAuth") {
 
-          GoogleAuth().then( () => {
+          GoogleAuth().then( (result) => {
               console.log("success");
-              this.props.history.push("/");
+              setUserData(result);
+              this.props.history.push('/user/profile');
           }).catch ( err => {
               console.log( err.message );
           });
@@ -52,8 +54,8 @@ export default class SignIn extends Component {
         <h1> Login </h1>
         <hr/>
         <form name="userAuth" onSubmit={this.handleSubmit}>
-          <div className="form-group"  onClick={this.handleSubmit}>
-            <button type="button" name="googleAuth"> <img src="https://www.iconfinder.com/data/icons/social-media-2210/24/Google-512.png" alt=""/> <b> Continue with Google</b> </button>
+          <div className="form-group" onClick={this.handleSubmit}>
+            <button type="button" name="googleAuth" > <img src="https://www.iconfinder.com/data/icons/social-media-2210/24/Google-512.png" alt="" name="googleAuth"/> Continue with Google </button>
           </div>
           <div className="form-group">
             <label>Email address</label>

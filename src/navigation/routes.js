@@ -4,6 +4,7 @@ import { BrowserRouter as Router , Route , Switch , Redirect } from 'react-route
 import Home from '../pages/Home/home';
 import SignUp from '../pages/AccountLogin/signup';
 import SignIn from '../pages/AccountLogin/signin';
+import Profile from '../pages/User/Profile';
 
 const createRoutes = () => (
     <Router>
@@ -15,6 +16,7 @@ const createRoutes = () => (
         <Route exact path="/home" component={ Home }/>
         <Route exact path="/signup" component={ SignUp }/>
         <Route exact path="/signin" component={ SignIn }/>
+        <Route exact path="/user/profile" component={ Profile } />
       </Switch>
     </Router>
 );
