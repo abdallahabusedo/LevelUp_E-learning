@@ -10,9 +10,10 @@ const firebaseConfig = {
     projectId: "levelup-bb9e8",
     storageBucket: "levelup-bb9e8.appspot.com",
     messagingSenderId: "602519641720",
-    appId: "1:602519641720:web:738fb17cc55c76484ed78d",
-    measurementId: "G-GVFZPRQSNN"
+    appId: "1:602519641720:web:ab9038e83deffcfd4ed78d",
+    measurementId: "G-1N5DR43B1T"
 };
+
 
 
 firebase.initializeApp(firebaseConfig);
