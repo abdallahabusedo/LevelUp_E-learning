@@ -1,7 +1,9 @@
-import { userData } from "../../services/Authentication";
 import UserProfile from "./../../components/profile/UserProfile";
+import { database, auth } from "./../../services/firebase";
+
 const Profile = () => {
-  console.log(userData);
+ 
+
   return (
     <div className="row">
       <div className="col-md-10 offset-md-1">

@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from "react";
-
+import { database, auth } from "./../../services/firebase";
+import firebase from "firebase";
 const UserForm = (props) => {
+  // const getData = () => {
+  //   database
+  //     .ref("user")
+  //     .child(auth.currentUser.uid)
+  //     .then((user) => {
+  //       return user;
+  //     });
+  // };
+  // console.log(getData);
   const initialState = {
     username: "",
     profileImage: "",
@@ -9,10 +19,16 @@ const UserForm = (props) => {
     Bio: "",
     LinkGitHub: "",
     LinkLinkedIn: "",
-    userId: "",
   };
-  var [Value, setValue] = useState(initialState);
 
+  var [Value, setValue] = useState(initialState);
+  var [readOnly, setReadOnly] = useState(true);
+  var uidUser = auth.currentUser.uid;
+  database
+    .ref("user/"+uidUser)
+    .once("value", (snap) => {
+      console.log(snap.val());
+    });
   const handleInputChange = (e) => {
     let { name, value } = e.target;
     setValue({
@@ -23,6 +39,11 @@ const UserForm = (props) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     props.AddOrEdit(Value);
+    setReadOnly(true);
+  };
+
+  const toggleEdit = () => {
+    setReadOnly(false);
   };
   return (
     <form autoComplete="off" onSubmit={handleFormSubmit}>
@@ -39,6 +60,7 @@ const UserForm = (props) => {
           name="username"
           value={Value.username}
           onChange={handleInputChange}
+          readOnly={readOnly}
         />
       </div>
       <div className="form-group input-group textBoxMa">
@@ -49,11 +71,13 @@ const UserForm = (props) => {
         </div>
         <input
           required
+          type="email"
           className="form-control"
           placeholder="Email"
           name="email"
           value={Value.email}
           onChange={handleInputChange}
+          readOnly={readOnly}
         />
       </div>
       <div className="form-group input-group textBoxMa">
@@ -69,6 +93,7 @@ const UserForm = (props) => {
           name="job"
           value={Value.job}
           onChange={handleInputChange}
+          readOnly={readOnly}
         />
       </div>
       <div className="form-group input-group textBoxMa">
@@ -84,6 +109,7 @@ const UserForm = (props) => {
           name="LinkGitHub"
           value={Value.LinkGitHub}
           onChange={handleInputChange}
+          readOnly={readOnly}
         />
       </div>
       <div className="form-group input-group textBoxMa">
@@ -99,6 +125,7 @@ const UserForm = (props) => {
           name="LinkLinkedIn"
           value={Value.LinkLinkedIn}
           onChange={handleInputChange}
+          readOnly={readOnly}
         />
       </div>
 
@@ -108,6 +135,13 @@ const UserForm = (props) => {
           type="submit"
           value="Save"
           className="btn btn-primary btn-block"
+        />
+        <input
+          required
+          type="button"
+          value="edit"
+          className="btn btn-primary btn-block"
+          onClick={toggleEdit}
         />
       </div>
     </form>

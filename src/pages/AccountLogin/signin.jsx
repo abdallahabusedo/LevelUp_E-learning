@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavigationBar from "../../components/navComponent";
 
 import { Link } from 'react-router-dom';
-import { GoogleAuth , userAuth , setUserData } from '../../services/Authentication';
+import { GoogleAuth, userAuth } from "../../services/Authentication";
 
 import "../../assets/styles/Form.css";
 export default class SignIn extends Component {
@@ -29,7 +29,6 @@ export default class SignIn extends Component {
       if( event.target.name === "userAuth") {
           userAuth( email , password ).then( (result) => {
               console.log("success");
-              setUserData(result);
               this.props.history.push('/user/profile');
           })
           .catch(err => {
@@ -39,7 +38,6 @@ export default class SignIn extends Component {
 
           GoogleAuth().then( (result) => {
               console.log("success");
-              setUserData(result);
               this.props.history.push('/user/profile');
           }).catch ( err => {
               console.log( err.message );

@@ -16,14 +16,3 @@ export const GoogleAuth = () => {
     provider.addScope('email');
     return auth.signInWithPopup(provider);
 }
-
-// User Data After SignIn
-var userData = {
-
-}
-
-export const setUserData = ( obj ) => {
-    userData = obj;
-}
-
-export {userData};

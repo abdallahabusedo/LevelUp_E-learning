@@ -5,7 +5,7 @@ export default function UserImage() {
   return (
     <div>
       <div className="card ImageDiv">
-        <img src={dummy} className="card-img-top" alt="profile" />
+        <img src={dummy} className="card-img" alt="profile" />
         <div className="card-body">
           <p className="card-text">this is the dummy text</p>
         </div>
