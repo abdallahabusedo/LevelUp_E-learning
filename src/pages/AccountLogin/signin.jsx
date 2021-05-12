@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import NavigationBar from "../../components/navComponent";
 
 import { Link } from 'react-router-dom';
+
+import { database } from "../../services/firebase";
 import { GoogleAuth, userAuth } from "../../services/Authentication";
 
 import "../../assets/styles/Form.css";
@@ -23,7 +25,6 @@ export default class SignIn extends Component {
 
   handleSubmit = ( event ) => {
       event.preventDefault();
-      console.log(event.target.name);
       
       let {email , password} = this.state;
       if( event.target.name === "userAuth") {
@@ -38,6 +39,24 @@ export default class SignIn extends Component {
 
           GoogleAuth().then( (result) => {
               console.log("success");
+              var ref = database.ref("user");
+              
+              ref.once("value" , snap => {
+                if( !snap.hasChild(result.user.uid) ) {
+                  ref.child(result.user.uid).set({
+                    username: result.user.displayName,
+                    profileImage: "",
+                    job: "",
+                    email: result.user.email,
+                    password: "Google Sign In",
+                    Bio: "",
+                    LinkGitHub: "",
+                    LinkLinkedIn: ""
+                  });
+                }
+
+              });
+                
               this.props.history.push('/user/profile');
           }).catch ( err => {
               console.log( err.message );

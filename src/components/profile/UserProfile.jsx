@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import UserForm from "./UserForm";
-import { database, auth } from "../../services/firebase";
+import { database , auth } from "../../services/firebase";
 import UserImage from "./UserImage";
 
-const UserProfile = (props) => {
+const UserProfile = () => {
+  var userId = auth.currentUser.uid;
   const AddOrEdit = (obj) => {
     database
       .ref("user")
-      .child("contacts")
-      .push(obj, (err) => {
-        if (err) {
-          console.log(err);
-        }
-      });
+      .child(userId)
+      .set (obj).catch( (err) => { console.log(err); });
   };
 
 

@@ -29,11 +29,15 @@ export default class SignUp extends Component {
       createUser(email, password)
         .then((result) => {
           console.log("success");
-          database.ref("user").push({
+          database.ref("user").child(result.user.uid).set({
+            username,
+            profileImage: "",
+            job,
             email,
             password,
-            username,
-            job,
+            Bio: "",
+            LinkGitHub: "",
+            LinkLinkedIn: ""
           });
           this.props.history.push("/user/profile");
         })

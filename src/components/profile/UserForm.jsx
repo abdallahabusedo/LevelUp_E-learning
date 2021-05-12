@@ -1,50 +1,65 @@
 import React, { useState, useEffect } from "react";
 import { database, auth } from "./../../services/firebase";
-import firebase from "firebase";
 const UserForm = (props) => {
-  // const getData = () => {
-  //   database
-  //     .ref("user")
-  //     .child(auth.currentUser.uid)
-  //     .then((user) => {
-  //       return user;
-  //     });
-  // };
-  // console.log(getData);
-  const initialState = {
+  
+  var [Value, setValue] = useState({
     username: "",
     profileImage: "",
     job: "",
     email: "",
+    password: "",
     Bio: "",
     LinkGitHub: "",
-    LinkLinkedIn: "",
-  };
+    LinkLinkedIn: ""
+  });
 
-  var [Value, setValue] = useState(initialState);
   var [readOnly, setReadOnly] = useState(true);
-  var uidUser = auth.currentUser.uid;
-  database
-    .ref("user/"+uidUser)
-    .once("value", (snap) => {
-      console.log(snap.val());
-    });
+  var [Email_Password , setEmail_Password ] = useState(true);
+
+  useEffect ( () => {
+      return database.ref("user").child(auth.currentUser.uid).once('value', (snapshot) => {
+        var newData = {
+          username: "",
+          profileImage: "",
+          job: "",
+          email: "",
+          password: "",
+          Bio: "",
+          LinkGitHub: "",
+          LinkLinkedIn: ""
+        };
+
+        snapshot.forEach( snap => { newData[snap.key] = snap.val(); });
+        setValue( newData );
+      });
+      
+  },[ setValue ] );
+
+  console.log(Value);
+  
   const handleInputChange = (e) => {
     let { name, value } = e.target;
+
     setValue({
       ...Value,
       [name]: value,
     });
   };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     props.AddOrEdit(Value);
+    setEmail_Password(true);
     setReadOnly(true);
   };
 
   const toggleEdit = () => {
+
     setReadOnly(false);
+    if( Value.password !== "Google Sign In")
+      setEmail_Password(false);
   };
+
   return (
     <form autoComplete="off" onSubmit={handleFormSubmit}>
       <div className="form-group input-group textBoxMa">
@@ -77,7 +92,7 @@ const UserForm = (props) => {
           name="email"
           value={Value.email}
           onChange={handleInputChange}
-          readOnly={readOnly}
+          readOnly={Email_Password}
         />
       </div>
       <div className="form-group input-group textBoxMa">
@@ -103,7 +118,6 @@ const UserForm = (props) => {
           </div>
         </div>
         <input
-          required
           className="form-control"
           placeholder="GitHub Link"
           name="LinkGitHub"
@@ -119,7 +133,6 @@ const UserForm = (props) => {
           </div>
         </div>
         <input
-          required
           className="form-control"
           placeholder="LinkedIn Link"
           name="LinkLinkedIn"
