@@ -1,5 +1,5 @@
 .userIcon{
-        height: 82%;
+    height: 82%;
 }
 .textBoxMa{
     margin-bottom: 20px;
@@ -10,5 +10,22 @@
 .ImageDiv{
    width: 14rem;
    height: 14rem;
+}
 
+.custom-file-upload input[type="button"]{
+    border: 1px solid ;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-top: 5px;
+    cursor: pointer;
+    
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.ImageDiv img {
+    height: 100%;
+    width: 100%;
 }

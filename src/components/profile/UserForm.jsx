@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { database, auth } from "./../../services/firebase";
-const UserForm = (props) => {
+
+export default function UserForm (props) {
   
   var [Value, setValue] = useState({
     username: "",
@@ -10,7 +11,7 @@ const UserForm = (props) => {
     password: "",
     Bio: "",
     LinkGitHub: "",
-    LinkLinkedIn: ""
+    LinkLinkedIn: "",
   });
 
   var [readOnly, setReadOnly] = useState(true);
@@ -26,7 +27,8 @@ const UserForm = (props) => {
           password: "",
           Bio: "",
           LinkGitHub: "",
-          LinkLinkedIn: ""
+          LinkLinkedIn: "",
+          EducationPosition: "",
         };
 
         snapshot.forEach( snap => { newData[snap.key] = snap.val(); });
@@ -111,6 +113,7 @@ const UserForm = (props) => {
           readOnly={readOnly}
         />
       </div>
+
       <div className="form-group input-group textBoxMa">
         <div className="input-group-prepend ">
           <div className="input-group-text userIcon">
@@ -161,4 +164,3 @@ const UserForm = (props) => {
   );
 };
 
-export default UserForm;

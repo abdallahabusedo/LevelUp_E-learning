@@ -1,10 +1,10 @@
 import React from "react";
 import UserForm from "./UserForm";
-import { database , auth } from "../../services/firebase";
+import { database } from "../../services/firebase";
 import UserImage from "./UserImage";
 
-const UserProfile = () => {
-  var userId = auth.currentUser.uid;
+const UserProfile = (props) => {
+  var userId = props.currentUser.uid ;
   const AddOrEdit = (obj) => {
     database
       .ref("user")
@@ -25,7 +25,7 @@ const UserProfile = () => {
         <div className="row align-items-md-stretch">
           <div className="col-md-5">
             <div className="h-100 p-5 text-white bg-dark rounded-3">
-              <UserImage />
+              <UserImage uid={userId}/>
             </div>
           </div>
           <div className="col-md-7">

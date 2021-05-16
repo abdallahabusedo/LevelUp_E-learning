@@ -51,13 +51,13 @@ export default class SignIn extends Component {
                     password: "Google Sign In",
                     Bio: "",
                     LinkGitHub: "",
-                    LinkLinkedIn: ""
+                    LinkLinkedIn: "",
+                  }).then( () => {
+                    this.props.history.push('/user/profile');
                   });
                 }
-
               });
                 
-              this.props.history.push('/user/profile');
           }).catch ( err => {
               console.log( err.message );
           });

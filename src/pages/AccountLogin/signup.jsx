@@ -25,7 +25,7 @@ export default class SignUp extends Component {
 
   handleSubmit = ( event ) => {
       event.preventDefault();
-      let { email, password, username, job } = this.state;
+      let { email, password, username, job, EducationPosition } = this.state;
       createUser(email, password)
         .then((result) => {
           console.log("success");
@@ -37,7 +37,8 @@ export default class SignUp extends Component {
             password,
             Bio: "",
             LinkGitHub: "",
-            LinkLinkedIn: ""
+            LinkLinkedIn: "",
+            EducationPosition
           });
           this.props.history.push("/user/profile");
         })
