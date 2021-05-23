@@ -63,7 +63,7 @@ export default function UserForm (props) {
   };
 
   return (
-    <form autoComplete="off" onSubmit={handleFormSubmit}>
+    <form className="FormDiv" autoComplete="off" onSubmit={handleFormSubmit}>
       <div className="form-group input-group textBoxMa">
         <div className="input-group-prepend">
           <div className="input-group-text userIcon">
@@ -72,7 +72,7 @@ export default function UserForm (props) {
         </div>
         <input
           required
-          className="form-control"
+          className="form-control inputwid"
           placeholder="Username"
           name="username"
           value={Value.username}
@@ -163,4 +163,3 @@ export default function UserForm (props) {
     </form>
   );
 };
-

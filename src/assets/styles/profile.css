@@ -1,16 +1,17 @@
+
+
 .userIcon{
     height: 82%;
 }
-.textBoxMa{
-    margin-bottom: 20px;
+.textBoxMa .form-group{
+    margin: 10px;
+    
+    
 }
 .inputText{
-    width:200px
+    width:20rem;
 }
-.ImageDiv{
-   width: 14rem;
-   height: 14rem;
-}
+
 
 .custom-file-upload input[type="button"]{
     border: 1px solid ;
@@ -26,6 +27,24 @@ input[type="file"] {
 }
 
 .ImageDiv img {
-    height: 100%;
-    width: 100%;
+   max-width: 100%;
+  height: auto;
+}
+
+.button3 {
+  position: relative;
+  background-color: #235e9a;
+  border: none;
+  font-size:2vw;
+  color: #FFFFFF;
+   max-width: 100%;
+  height: auto;
+  text-align: center;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 10px;
+  
 }

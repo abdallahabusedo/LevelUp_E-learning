@@ -17,15 +17,15 @@ const UserProfile = (props) => {
     <>
       <div className="container py-4">
         <div className="p-10 mb-4 bg-light rounded-3">
-          <div className="container-fluid py-5">
-            <h1 className="display-10 fw-bold">Profile Page</h1>
+          <div className="container">
+            <h1 className="">Profile Page</h1>
           </div>
         </div>
 
         <div className="row align-items-md-stretch">
           <div className="col-md-5">
             <div className="h-100 p-5 text-white bg-dark rounded-3">
-              <UserImage uid={userId}/>
+              <UserImage uid={userId} />
             </div>
           </div>
           <div className="col-md-7">

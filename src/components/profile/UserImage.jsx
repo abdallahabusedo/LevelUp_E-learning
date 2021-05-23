@@ -44,12 +44,16 @@ export default function UserImage( props ) {
       <div className="card ImageDiv">
         <img src={userImage} className="card-img" alt="profile" />
       </div>
-        
+
       <div className="custom-file-upload">
-        <input type="file" id="file" accept="image/*" onChange={updateIamge}/>
-        <input type="button" onClick={getFile} value="Upload File"/>
+        <input type="file" id="file" accept="image/*" onChange={updateIamge} />
+        <input
+          type="button"
+          onClick={getFile}
+          value="Upload File"
+          className="button3"
+        />
       </div>
-      
     </div>
   );
 }
