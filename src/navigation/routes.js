@@ -5,7 +5,7 @@ import Home from '../pages/Home/home';
 import SignUp from '../pages/AccountLogin/signup';
 import SignIn from '../pages/AccountLogin/signin';
 import Profile from '../pages/User/Profile';
-import VideoPage from "../pages/videoPage/videoPage.jsx";
+import videoPage from "../pages/videoPage/videoPage.jsx";
 const createRoutes = () => (
   <Router>
     <Switch>
@@ -17,7 +17,7 @@ const createRoutes = () => (
       <Route exact path="/signup" component={SignUp} />
       <Route exact path="/signin" component={SignIn} />
       <Route exact path="/user/profile" component={Profile} />
-      <Route exact path="/VideoPage" component={VideoPage} />
+      <Route exact path="/videoPage" component={videoPage} />
     </Switch>
   </Router>
 );
