@@ -1,19 +1,24 @@
 import React , { useState , useEffect } from "react";
 import "./../../assets/styles/profile.css";
 import dummy from "./../../assets/Images/dummyprofile.jpg";
-import { storage , database } from "./../../services/firebase";
+import { storage , fireStore } from "./../../services/firebase";
 
 export default function UserImage( props ) {
   var userId = props.uid;
 
-  const [userImage , setUserImage] = useState( dummy );
+  const [userImage , setUserImage] = useState();
 
   useEffect ( () => {
-      return database.ref("user")
-                     .child(userId)
-                     .child("profileImage")
-                     .once('value', snap => { if( snap ) setUserImage( snap.val() ); });
-        
+      return fireStore.collection("users").doc(userId).get().then( doc => {
+        if (doc.exists) {
+          var img = doc.get("profileImage");
+          if (img === "") 
+            setUserImage( dummy );
+          else
+            setUserImage( doc.get("profileImage") );
+        }
+      });
+    
   },[ userId , setUserImage ] );
 
   const metadata = {
@@ -32,10 +37,10 @@ export default function UserImage( props ) {
    
     imgRef.getDownloadURL()
           .then((url) => {
-            database.ref("user")
-                    .child(userId)
-                    .child("profileImage")
-                    .set(url);
+            fireStore.collection("users").doc(userId)
+                     .update({
+                        profileImage: url
+                      }).then( () => { console.log("Image Uploaded"); });
           }).catch( err => { console.log(err); });
   }
 

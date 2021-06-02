@@ -3,7 +3,7 @@ import NavigationBar from "../../components/navComponent";
 
 import { Link } from 'react-router-dom';
 import { createUser } from "../../services/Authentication";
-import { database } from "./../../services/firebase";
+import { fireStore } from "./../../services/firebase";
 import "../../assets/styles/Form.css";
 export default class SignUp extends Component {
 
@@ -15,6 +15,7 @@ export default class SignUp extends Component {
         password: "",
         username: "",
         job: "",
+        EducationPosition: ""
       };
   }
 
@@ -29,18 +30,25 @@ export default class SignUp extends Component {
       createUser(email, password)
         .then((result) => {
           console.log("success");
-          database.ref("user").child(result.user.uid).set({
-            username,
-            profileImage: "",
-            job,
-            email,
-            password,
-            Bio: "",
-            LinkGitHub: "",
-            LinkLinkedIn: "",
-            EducationPosition
-          });
-          this.props.history.push("/user/profile");
+          fireStore
+            .collection("users")
+            .doc(result.user.uid)
+            .set({
+                username,
+                profileImage: "",
+                job,
+                email,
+                password,
+                Bio: "",
+                LinkGitHub: "",
+                LinkLinkedIn: "",
+                EducationPosition
+            }).then(() => {
+              console.log("Sign Up Success");
+              this.props.history.push(`/user/profile`);    
+              //this.props.history.push(`/`); 
+            });
+          
         })
         .catch((err) => {
           console.log(err);
