@@ -3,7 +3,7 @@ import NavigationBar from "../../components/navComponent";
 
 import { Link } from 'react-router-dom';
 
-import { database } from "../../services/firebase";
+import { fireStore } from "../../services/firebase";
 import { GoogleAuth, userAuth } from "../../services/Authentication";
 
 import "../../assets/styles/Form.css";
@@ -28,8 +28,8 @@ export default class SignIn extends Component {
       
       let {email , password} = this.state;
       if( event.target.name === "userAuth") {
-          userAuth( email , password ).then( (result) => {
-              console.log("success");
+          userAuth( email , password ).then( () => {
+              console.log("User Auth Success");
               this.props.history.push('/user/profile');
           })
           .catch(err => {
@@ -38,23 +38,27 @@ export default class SignIn extends Component {
       } else if( event.target.name === "googleAuth") {
 
           GoogleAuth().then( (result) => {
-              console.log("success");
-              var ref = database.ref("user");
+              console.log("Google Auth Success");
+              var ref = fireStore.collection("users");
               
-              ref.once("value" , snap => {
-                if( !snap.hasChild(result.user.uid) ) {
-                  ref.child(result.user.uid).set({
-                    username: result.user.displayName,
-                    profileImage: "",
-                    job: "",
-                    email: result.user.email,
-                    password: "Google Sign In",
-                    Bio: "",
-                    LinkGitHub: "",
-                    LinkLinkedIn: "",
+              ref.get(result.user.uid).then((doc) => {
+                if (!doc.exists) {
+                  ref.doc(result.user.uid).set({
+                      username: result.user.displayName,
+                      profileImage: "",
+                      job: "",
+                      email: result.user.email,
+                      password: "Google Sign In",
+                      Bio: "",
+                      LinkGitHub: "",
+                      LinkLinkedIn: "",
                   }).then( () => {
                     this.props.history.push('/user/profile');
+                    //this.props.history.push("/");
                   });
+                } else {
+                  this.props.history.push('/user/profile');
+                  //this.props.history.push("/");
                 }
               });
                 

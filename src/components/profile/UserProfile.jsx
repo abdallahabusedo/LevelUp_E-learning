@@ -1,14 +1,13 @@
 import React from "react";
 import UserForm from "./UserForm";
-import { database } from "../../services/firebase";
+import { fireStore } from "../../services/firebase";
 import UserImage from "./UserImage";
 
 const UserProfile = (props) => {
   var userId = props.currentUser.uid ;
   const AddOrEdit = (obj) => {
-    database
-      .ref("user")
-      .child(userId)
+    fireStore
+      .collection("users").doc(userId)
       .set (obj).catch( (err) => { console.log(err); });
   };
 
@@ -28,6 +27,7 @@ const UserProfile = (props) => {
               <UserImage uid={userId} />
             </div>
           </div>
+          
           <div className="col-md-7">
             <div className="h-100 p-5 bg-light border rounded-3">
               <UserForm AddOrEdit={AddOrEdit} />

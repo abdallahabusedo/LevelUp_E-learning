@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { database, auth } from "./../../services/firebase";
+import { fireStore, auth } from "./../../services/firebase";
 
 export default function UserForm (props) {
   
-  var [Value, setValue] = useState({
+  var [Info, setInfo] = useState({
     username: "",
     profileImage: "",
     job: "",
@@ -12,45 +12,46 @@ export default function UserForm (props) {
     Bio: "",
     LinkGitHub: "",
     LinkLinkedIn: "",
+    EducationPosition: ""
   });
 
   var [readOnly, setReadOnly] = useState(true);
   var [Email_Password , setEmail_Password ] = useState(true);
 
   useEffect ( () => {
-      return database.ref("user").child(auth.currentUser.uid).once('value', (snapshot) => {
-        var newData = {
-          username: "",
-          profileImage: "",
-          job: "",
-          email: "",
-          password: "",
-          Bio: "",
-          LinkGitHub: "",
-          LinkLinkedIn: "",
-          EducationPosition: "",
-        };
-
-        snapshot.forEach( snap => { newData[snap.key] = snap.val(); });
-        setValue( newData );
+      return fireStore.collection("users").doc(auth.currentUser.uid).get().then( doc => {
+        if (doc.exists) {
+          setInfo( {     
+            username: doc.get("username") ,
+            profileImage: doc.get("profileImage"),
+            job: doc.get("job"),
+            email: doc.get("email"),
+            password: doc.get("password"),
+            Bio: doc.get("Bio"),
+            LinkGitHub: doc.get("LinkGitHub"),
+            LinkLinkedIn: doc.get("LinkLinkedIn"),
+            EducationPosition: doc.get("EducationPosition")
+          } );
+        }
+        
       });
       
-  },[ setValue ] );
+  },[ setInfo ] );
 
-  console.log(Value);
+  console.log(Info);
   
   const handleInputChange = (e) => {
     let { name, value } = e.target;
 
-    setValue({
-      ...Value,
+    setInfo({
+      ...Info,
       [name]: value,
     });
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    props.AddOrEdit(Value);
+    props.AddOrEdit(Info);
     setEmail_Password(true);
     setReadOnly(true);
   };
@@ -58,7 +59,7 @@ export default function UserForm (props) {
   const toggleEdit = () => {
 
     setReadOnly(false);
-    if( Value.password !== "Google Sign In")
+    if( Info.password !== "Google Sign In")
       setEmail_Password(false);
   };
 
@@ -75,7 +76,7 @@ export default function UserForm (props) {
           className="form-control inputwid"
           placeholder="Username"
           name="username"
-          value={Value.username}
+          value={Info.username}
           onChange={handleInputChange}
           readOnly={readOnly}
         />
@@ -92,7 +93,7 @@ export default function UserForm (props) {
           className="form-control"
           placeholder="Email"
           name="email"
-          value={Value.email}
+          value={Info.email}
           onChange={handleInputChange}
           readOnly={Email_Password}
         />
@@ -108,7 +109,7 @@ export default function UserForm (props) {
           className="form-control"
           placeholder="job"
           name="job"
-          value={Value.job}
+          value={Info.job}
           onChange={handleInputChange}
           readOnly={readOnly}
         />
@@ -124,7 +125,7 @@ export default function UserForm (props) {
           className="form-control"
           placeholder="GitHub Link"
           name="LinkGitHub"
-          value={Value.LinkGitHub}
+          value={Info.LinkGitHub}
           onChange={handleInputChange}
           readOnly={readOnly}
         />
@@ -139,7 +140,7 @@ export default function UserForm (props) {
           className="form-control"
           placeholder="LinkedIn Link"
           name="LinkLinkedIn"
-          value={Value.LinkLinkedIn}
+          value={Info.LinkLinkedIn}
           onChange={handleInputChange}
           readOnly={readOnly}
         />
