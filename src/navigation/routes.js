@@ -8,7 +8,7 @@ import Profile from '../pages/User/Profile';
 import videoPage from "../pages/videoPage/videoPage.jsx";
 import Course from '../pages/Course/course.jsx';
 import CouresCreator from '../pages/CourseCreator/CourseCreator.jsx';
-import Search from '../pages/Search /Search';
+import Search from '../pages/Search/Search';
 const createRoutes = () => (
   <Router>
     <Switch>

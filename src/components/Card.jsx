@@ -9,10 +9,10 @@ export default function Card(props) {
 
                 <div class="product-details">
 
-                    <h1>{props.courseInfo["courseName"]}</h1>
+                    <h1>{props.courseInfo["name"]}</h1>
 
 
-                    <p class="information">" {props.courseInfo["courseBio"]}</p>
+                    <p className="bio"> {props.courseInfo["bio"]}</p>
 
 
 
@@ -21,14 +21,15 @@ export default function Card(props) {
                 </div>
 
                 <div class="product-image">
-
+                   
                     <img src="https://images.unsplash.com/photo-1606830733744-0ad778449672?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzl8fGNocmlzdG1hcyUyMHRyZWV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="" />
 
-
+                    <a href={"http://localhost:3000/course/"+props.id}>
                     <div class="info">
-                        <h2> go to course</h2>
-
+                        <h2> go to course page</h2>
+                   
                     </div>
+                    </a>
                 </div>
 
             </div>

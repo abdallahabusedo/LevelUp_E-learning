@@ -4,6 +4,21 @@ import "../../assets/styles/course.css"
 import firebase from "../../services/firebase"
 // import 'firebase/firestore';
 import { useParams } from "react-router-dom";
+// import { getplaylist } from "../../services/youtubeplaylist";
+// import { google } from "googleapis";
+// function getplaylist() {
+//     google.youtube("v3").playlistItems.list({
+//         "part": [
+//             "contentDetails"
+//         ],
+//         "playlistId": "PL4cUxeGkcC9gC88BEo9czgyS72A3doDeM"
+//     }).then(res => {
+//         console.log(res);
+//     });
+// };
+
+
+// Make sure the client is loaded and sign-in is complete before calling this method.
 
 export default function Course() {
     // course data , loading state and found or not state
@@ -20,14 +35,17 @@ export default function Course() {
 
     // retrive course data 
     function getCourseData() {
+        console.log(id)
 
-        ref.where('name', '==', id).get().then((Snapshot) => {
+
+        ref.where(firebase.firestore.FieldPath.documentId(), '==', id).get().then((Snapshot) => {
             if (Snapshot.empty) {
 
                 setNotFound(true);
                 setLoading(false);
                 return;
             }
+
             const items = [];
             Snapshot.forEach(doc => {
                 items.push(doc.data())
@@ -47,7 +65,8 @@ export default function Course() {
 
     useEffect(() => {
         getCourseData();
-    });
+        // console.log(getplaylist())
+    }, []);
 
 
     let enrolled = true;
@@ -84,7 +103,7 @@ export default function Course() {
             </header>
             <section>
                 <div>
-                    <div className="course-wallpaper" style={{ "background-color": course[0]["color"] }}>
+                    <div className="course-wallpaper" style={{ "background-color": "coral" }}>
                         <div className="course-name">{course[0]["name"]}</div>
                         <div className="course-bio"><p>{course[0]["bio"]}</p>
 
@@ -106,10 +125,11 @@ export default function Course() {
 
                             {
 
-                                course[0]["instructors"].map((instructor) => {
-                                    return <h4>{instructor}</h4>
-                                })
+                                // course[0]["instructors"].map((instructor) => {
+                                //     return <h4>{instructor}</h4>
+                                // })
                             }
+
                         </div>
                     </div>
 

@@ -22,13 +22,13 @@ export default function CourseCreator() {
     function handleSubmit(event) {
         event.preventDefault();
 
-        courseInfo["keyWords"] = String(courseInfo["keyWordsString"]).split(" ")
-        courseInfo["keyWords"] = courseInfo["keyWords"].concat(courseInfo["courseName"].split(" "))
-        console.log(courseInfo["keyWords"])
-        ref.doc(courseInfo["courseName"]).get().then((value) => {
+        courseInfo["keywords"] = String(courseInfo["keyWordsString"]).split(" ")
+        courseInfo["keywords"] = courseInfo["keywords"].concat(courseInfo["name"].split(" "))
+        console.log(courseInfo["keywords"])
+        ref.doc(String(courseInfo["name"]).split(" ").join("-")).get().then((value) => {
 
             if (!value.data())
-                ref.doc(courseInfo["courseName"]).set(courseInfo);
+                ref.doc(String(courseInfo["name"]).split(" ").join("-")).set(courseInfo);
             else
                 console.log("course name is already taken")
         })
@@ -41,34 +41,33 @@ export default function CourseCreator() {
 
     return (
 
-            <div className="form-container">
-              <NavigationBar />
-              <h1> Signup </h1>
-              <hr />
+        <div className="form-container">
+            <NavigationBar />
 
-                <h1> Create Course </h1>
-                <hr />
-                <form name="createCourse" onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label>Course Name</label>
-                        <input type="text" required="" className="form-control" id="courseName" placeholder="Course Name" name="courseName" onChange={handleChange} />
-                    </div>
-                    <div className="form-group">
-                        <label>Coures bio</label>
-                        <input type="text" required="" className="form-control" id="courseBio" placeholder="Course bio" name="courseBio" onChange={handleChange} />
-                    </div>
-                    <div className="form-group">
-                        <label>key Words spearted by spaces</label>
-                        <input type="text" className="form-control" id="keyWords" placeholder="key words" name="keyWordsString" onChange={handleChange} />
-                    </div>
-                    <div className="form-group">
+
+            <h1> Create Course </h1>
+            <hr />
+            <form name="createCourse" onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label>Course Name</label>
+                    <input type="text" required="" className="form-control" id="name" placeholder="Course Name" name="name" onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Coures bio</label>
+                    <input type="text" required="" className="form-control" id="bio" placeholder="Course bio" name="bio" onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>key Words spearted by spaces</label>
+                    <input type="text" className="form-control" id="keywords" placeholder="key words" name="keyWordsString" onChange={handleChange} />
+                </div>
+                {/* <div className="form-group">
                         <label>link to youtube playlist</label>
                         <input type="text" className="form-control" id="playlist" placeholder="youtube playlist" name="playlist" onChange={handleChange} />
-                    </div>
-                    <div className="form-actions">
-                        <input type="submit" value="Create Course" />
-                    </div>
-                </form>
-            </div>
+                    </div> */}
+                <div className="form-actions">
+                    <input type="submit" value="Create Course" />
+                </div>
+            </form>
+        </div>
     );
 }
