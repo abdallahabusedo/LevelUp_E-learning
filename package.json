@@ -12,6 +12,7 @@
     "firebase": "^8.5.0",
     "googleapis": "^75.0.0",
     "http2": "^3.3.7",
+    "import-env": "^1.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
