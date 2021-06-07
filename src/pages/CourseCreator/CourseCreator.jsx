@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import NavigationBar from "../../components/navComponent";
 import "../../assets/styles/course.css"
 import firebase from "../../services/firebase"
+import "../../assets/styles/Form.css"
 // import 'firebase/firestore';
 import { useParams } from "react-router-dom";
 
@@ -40,11 +41,11 @@ export default function CourseCreator() {
 
     return (
 
-        <div>
-            <header className="page-header" >
-                <NavigationBar />
-            </header>
-            <section>
+            <div className="form-container">
+              <NavigationBar />
+              <h1> Signup </h1>
+              <hr />
+
                 <h1> Create Course </h1>
                 <hr />
                 <form name="createCourse" onSubmit={handleSubmit}>
@@ -60,13 +61,14 @@ export default function CourseCreator() {
                         <label>key Words spearted by spaces</label>
                         <input type="text" className="form-control" id="keyWords" placeholder="key words" name="keyWordsString" onChange={handleChange} />
                     </div>
-
+                    <div className="form-group">
+                        <label>link to youtube playlist</label>
+                        <input type="text" className="form-control" id="playlist" placeholder="youtube playlist" name="playlist" onChange={handleChange} />
+                    </div>
                     <div className="form-actions">
                         <input type="submit" value="Create Course" />
                     </div>
                 </form>
-
-            </section>
-        </div >
+            </div>
     );
 }
