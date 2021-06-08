@@ -1,29 +1,15 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import "./../../assets/styles/videoPage.css";
 import YoutubeEmbed from "./../../services/youtubeEmbed";
+import { fireStore, auth } from "./../../services/firebase";
+
 class videoPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: ["lecture 1", "lecture 1", "lecture 1", "lecture 1"],
-
-      videos: [
-        {
-          id: 1,
-          name: "lecture 1",
-          embedId: "CNlj-uAiqmA",
-        },
-        {
-          id: 2,
-          name: "lecture 2",
-          embedId: "iOauBgi9H1w",
-        },
-        {
-          id: 3,
-          name: "lecture 3",
-          embedId: "k_yXgGfVXgs",
-        },
-      ],
+      test: [],
+      videos: [],
       embedid: "",
     };
     this.handleClick = this.handleClick.bind(this);
@@ -40,25 +26,36 @@ class videoPage extends Component {
       [name]: value,
     });
   };
+
   lectureButtonFunc = (videos) => {
     return videos.map((d, index) => {
-      console.log("d", this.state.embedid);
+      console.log(d);
+      //console.log("d", this.state.embedid);
       return (
-        <button value={d.embedId} name="embedid" onClick={this.handleClick}>
-          {d.name}
+        <button value={d} name="embedid" onClick={this.handleClick}>
+          {"lecture" + " " + (index + 1)}
         </button>
       );
     });
   };
+  fetchData = () => {
+    const query = fireStore
+      .collection("courses")
+      .doc("python-for-begginners")
+      .get()
+      .then((data) => {
+        this.setState({ videos: data.get("videosID") });
+        console.log(this.state.videos);
+        this.setState({ embedid: this.state.videos[0] });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(query);
+  };
   componentDidMount = () => {
-    // this.state.videos.map((d, index) => {
-    //     var lectureButton = document.createElement("button");
-    //     lectureButton.innerHTML = `${d.name}`;
-    //     var myCurrentElement = document.getElementById("col");
-    //     lectureButton.addEventListener("click",this.onClickLink(this.state.videos[index].embedId));
-    //     myCurrentElement.insertAdjacentElement("beforeend", lectureButton);
-    //    })
-    this.setState({ embedid: this.state.videos[0].embedId });
+    this.fetchData();
+    console.log("asd", this.state.videos);
   };
   render() {
     if (this.state.videos) {
