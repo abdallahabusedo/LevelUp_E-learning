@@ -81,6 +81,7 @@ export default function Course(props) {
             setenrollbutton( <button type="button" class="btn btn-dark " 
             onClick={()=>props.history.push("/login")}>
                 login</button>)
+                return 
         }
         if(course[0]){
             console.log(course[0]);
