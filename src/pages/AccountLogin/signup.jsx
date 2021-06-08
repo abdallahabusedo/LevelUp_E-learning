@@ -1,4 +1,4 @@
-import React, { useState , setState } from 'react';
+import React, { useState  } from 'react';
 import NavigationBar from "../../components/navComponent";
 
 import { Link } from 'react-router-dom';
@@ -8,7 +8,6 @@ import "../../assets/styles/Form.css";
 const SignUp = () => {
 
   const {authContext} = useAuth();
-  const [loading, setLoading] = useState(false)
   const [data,setData] = useState({
     email: "",
     password: "",
@@ -24,9 +23,8 @@ const SignUp = () => {
 
   const handleSubmit = async ( event ) => {
       event.preventDefault();
-      let { email, password, username, job, EducationPosition } = useState;
+      let { email, password, username, job, EducationPosition } = data;
 
-      setLoading(true);
       authContext.SignUp(email, password)
         .then((result) => {
           console.log("success");
@@ -53,7 +51,6 @@ const SignUp = () => {
         .catch((err) => {
           console.log(err);
         });
-        setLoading(false);
   }
 
   return (

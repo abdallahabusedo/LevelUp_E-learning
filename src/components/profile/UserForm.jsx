@@ -39,7 +39,7 @@ export default function UserForm(props) {
           });
         }
       });
-  }, [setInfo]);
+  }, [setInfo , currentUser]);
 
   console.log(Info);
 

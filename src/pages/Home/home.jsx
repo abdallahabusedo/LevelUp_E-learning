@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NavigationBar from "../../components/navComponent";
+import "./../../assets/styles/home.css";
 export default class Home extends Component {
   render() {
     return (
@@ -10,7 +11,7 @@ export default class Home extends Component {
         <section>
           <div>
             <h1>A large selection of courses</h1>
-            <p>Choose from 10 online video courses with new additions published every month</p>
+            <h2>Choose from 10 online video courses with new additions published every month</h2>
           </div>
 
         </section>

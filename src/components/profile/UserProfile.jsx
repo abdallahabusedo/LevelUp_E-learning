@@ -28,14 +28,15 @@ const UserProfile = () => {
 
   return (
     <>
-      <div>
+      <div id="profile">
         <NavigationBar />
         <UserImage uid={currentUser.uid} />
         <UserForm AddOrEdit={AddOrEdit} />
+        
+        <input type="button" id="btn-logout" onClick={handleLogOut} value="Sign Out" />
+        
       </div>
-      <div>
-        <button onClick={handleLogOut}>Sign Out</button>
-      </div>
+      
     </>
   );
 };

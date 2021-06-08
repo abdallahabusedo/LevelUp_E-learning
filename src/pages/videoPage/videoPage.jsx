@@ -1,7 +1,7 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./../../assets/styles/videoPage.css";
 import YoutubeEmbed from "../../services/youtubeEmbed";
-import { fireStore, auth } from "../../services/firebase";
+import { fireStore } from "../../services/firebase";
 import { useParams } from "react-router-dom";
 export default function VideoPage(props) {
   let [videos, setVideos] = useState([]);
@@ -18,7 +18,7 @@ export default function VideoPage(props) {
       console.log(d);
       return (
         <button value={d} name="embedid" onClick={handleClick}>
-          {"lecture" + " " + (index + 1)}
+          {`lecture ${index + 1}`}
         </button>
       );
     });
@@ -41,7 +41,7 @@ export default function VideoPage(props) {
   useEffect(() => {
     fetchData();
     console.log("asd", videos);
-  }, []);
+  });
   if (videos) {
     return (
       <div>
