@@ -84,8 +84,7 @@ a:hover {
 }
 
 #btn-logout {
-  margin-left: 525px !important;
-  width: 300px;
+  width: 100%;
   background-color: #4285f4;
   color:white;
 }

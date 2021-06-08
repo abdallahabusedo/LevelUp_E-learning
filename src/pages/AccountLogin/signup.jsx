@@ -13,7 +13,6 @@ const SignUp = () => {
     password: "",
     username: "",
     job: "",
-    EducationPosition: ""
   });
 
   const handleChange = ( event ) => {
@@ -23,7 +22,7 @@ const SignUp = () => {
 
   const handleSubmit = async ( event ) => {
       event.preventDefault();
-      let { email, password, username, job, EducationPosition } = data;
+      let { email, password, username, job} = data;
 
       authContext.SignUp(email, password)
         .then((result) => {
@@ -40,7 +39,7 @@ const SignUp = () => {
                 Bio: "",
                 LinkGitHub: "",
                 LinkLinkedIn: "",
-                EducationPosition
+                Credentials: "Student",
             }).then(() => {
               console.log("Sign Up Success");
               this.props.history.push(`/user/profile`);    

@@ -55,12 +55,14 @@ const SignIn = () => {
                   Bio: "",
                   LinkGitHub: "",
                   LinkLinkedIn: "",
-                })
+                  Credentials: "Student"
+                });
           });
       }).catch((err) => {
           console.log(err.message);
       });
       history.push("/user/profile");
+      
     }
   }
 
