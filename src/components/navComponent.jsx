@@ -10,7 +10,7 @@ export default class NavigationBar extends Component {
         <ul id="navbar-list">
             <li> <Link to="/home">Home</Link></li>
             <li> <Link to="/signup">Sign up</Link></li>
-            <li> <Link to="/signin">Login</Link></li>
+            <li> <Link to="/login">Login</Link></li>
         </ul>
       </div>
     )

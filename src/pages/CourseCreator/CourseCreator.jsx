@@ -9,12 +9,14 @@ import { useParams } from "react-router-dom";
 import CourseImage from '../../components/CourseImage';
 import youtube from "../../services/youtubeplaylist";
 import url from 'url';
+import {useAuth} from "../../services/authContext";
 export default function CourseCreator(props) {
     // course data , loading state and found or not state
     const ref = firebase.firestore().collection("courses");
     let [courseInfo, setCoureInfo] = useState({});
     let [formStates, setFormStates] = useState({});
     // let [reload, setreload] = useState();
+    const {currentUser}=useAuth();
     function handleChange(event) {
         let name = event.target.name, value = event.target.value;
         let temp = courseInfo;
@@ -40,7 +42,6 @@ export default function CourseCreator(props) {
         let currentformstates = {}
 
         event.preventDefault();
-        console.log(courseInfo)
         let notCompleted = false
         if (!courseInfo["name"] || courseInfo["name"] === "") {
             currentformstates["nameNotEntered"] = true;
@@ -50,7 +51,6 @@ export default function CourseCreator(props) {
             currentformstates["bioNotEntered"] = true;
             notCompleted = true;
         }
-        console.log(!courseInfo["playlist"] || courseInfo["playlist"] === "")
         if (!courseInfo["playlist"] || courseInfo["playlist"] === "") {
             currentformstates["playlistNotEntered"] = true;
             notCompleted = true;
@@ -65,6 +65,8 @@ export default function CourseCreator(props) {
         courseInfo["keywords"] = courseInfo["keywords"].concat(courseInfo["name"].split(" "))
         let playlisturl = new URL(courseInfo["playlist"]);
         courseInfo["videosID"] = addvediosID(playlisturl.searchParams.get("list"));
+        courseInfo["instractorMail"]=currentUser.email
+
         ref.doc(String(courseInfo["name"]).split(" ").join("-")).get().then((value) => {
 
             if (!value.data()) {
@@ -87,7 +89,6 @@ export default function CourseCreator(props) {
 
         <div className="form-container">
             <NavigationBar />
-            {console.log(formStates)}
             <h1> Create Course </h1>
             <hr />
             <form name="createCourse" onSubmit={handleSubmit}>
@@ -108,6 +109,11 @@ export default function CourseCreator(props) {
                 <div className="form-group">
                     <label>key Words spearted by spaces</label>
                     <input type="text" className="form-control" id="keywords" placeholder="key words" name="keyWordsString" onChange={handleChange} />
+
+                </div>
+                <div className="form-group">
+                    <label>content</label>
+                    <input  type="textArea" className="form-control" id="content" placeholder="course content" name="content" onChange={handleChange} />
 
                 </div>
                 <div className="form-group">

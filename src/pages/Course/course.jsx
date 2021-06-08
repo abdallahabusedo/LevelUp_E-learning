@@ -4,18 +4,20 @@ import "../../assets/styles/course.css"
 import firebase from "../../services/firebase"
 // import 'firebase/firestore';
 import { useParams } from "react-router-dom";
-
+import {useAuth} from "../../services/authContext";
 
 // Make sure the client is loaded and sign-in is complete before calling this method.
 
-export default function Course() {
+export default function Course(props) {
     // course data , loading state and found or not state
-    const [course, setCourse] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [notFound, setNotFound] = useState(false);
+    let [course, setCourse] = useState([]);
+    let [loading, setLoading] = useState(true);
+    let [notFound, setNotFound] = useState(false);
+    let [enrollbutton,setenrollbutton] =useState()
     const ref = firebase.firestore().collection("courses");
-
-
+    const users = firebase.firestore().collection("users");
+    const {currentUser}=useAuth();
+     
     // get course id from the url 
     let { id } = useParams();
 
@@ -51,24 +53,72 @@ export default function Course() {
 
 
     }
+    //enroll the user in the course 
+    function enrolluser(){
+      
+        users.where("email", '==',currentUser.email ).get().then(user=>{
+            console.log("hi")
+            let firstTime = true
+            let myuser;
+            let userid;
+            user.forEach(doc=>{
+                console.log("hi")
+                if(firstTime){
+                            myuser=doc.data();
+                            userid = doc.id
+                            firstTime=false;}
+                })
+            console.log(myuser)
+            myuser.courses.push(course[0]["name"]);
+            users.doc(userid).set(myuser);
+            setenrollbutton(<button type="button" class="btn btn-dark " onClick={enrolluser}>enroll</button>)
+        });
+    }
+    //setenrollbutton
+    function getenrollbutton(){
+        
+        if(!currentUser){
+            setenrollbutton( <button type="button" class="btn btn-dark " 
+            onClick={()=>props.history.push("/login")}>
+                login</button>)
+        }
+        if(course[0]){
+            console.log(course[0]);
+        users.where("email", '==',currentUser.email ).get().then((user)=>{
+                let firstTime = true
+                let myuser;
+                user.forEach(
+                    doc=>{
+                        if(firstTime){
+                            myuser=doc.data()
+                            firstTime=false}
+                    }
+                    )
+                    console.log(myuser  )
+                if(course[0]["instractorMail"]==myuser.email){
+                    setenrollbutton (<h4><span class="badge bg-light text-dark">you own this course</span></h4>)
+                }
+                else if(myuser.courses&&myuser.courses.includes(course[0]["name"])){
+                    setenrollbutton(<button type="button" class="btn btn-dark ">watch content</button>)
+                }
+                else{
+                    setenrollbutton(<button type="button" class="btn btn-dark " onClick={enrolluser}>enroll</button>)
+                }
+            })
+        }
 
+
+        
+    }
     useEffect(() => {
         getCourseData();
         // console.log(getplaylist())
     }, []);
+    useEffect(()=>{
+        console.log("reloding")
+        getenrollbutton()
+    },[course])
 
-
-    let enrolled = true;
-
-
-    let button;
-
-    // enroll button 
-    if (enrolled) {
-        button = <h4><span class="badge bg-light text-dark">enrolled</span></h4>
-    } else {
-        button = <button type="button" class="btn btn-dark ">enroll</button>
-    }
     if (loading) {
         return <div></div>;
     }
@@ -92,19 +142,14 @@ export default function Course() {
             </header>
             <section>
                 <div>
-                    <div className="course-wallpaper" style={{ "background-color": "coral" }}>
+                    <div className="course-wallpaper" >
                         <div className="course-name">{course[0]["name"]}</div>
                         <div className="course-bio"><p>{course[0]["bio"]}</p>
 
                         </div>
-                        {/* <div class="card" >
-                            <img class="card-img-top" src="https://ukmadcat.com/wp-content/uploads/2019/04/sleepy-cat-800x445.jpg" alt="Card image cap" />
-                            <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div> */}
+                        
                         <div className="enrollment-button">
-                            {button}
+                            {enrollbutton}
                         </div>
                     </div>
                     <div className="course-info">

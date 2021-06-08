@@ -46,7 +46,6 @@ form input[type="submit"] {
   transition: all 0.3 ease;
   cursor: pointer;
 }
-
 form input[type="submit"]:hover,
 form input[type="submit"]:active,
 form input[type="submit"]:focus {

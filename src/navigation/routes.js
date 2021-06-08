@@ -53,10 +53,10 @@ const createRoutes = () => (
         <Route exact path="/search/:id" component={Search} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/course/:id" component={Course} />
-        <Route exact path="/createcourse" component={CouresCreator} />
         <AuthenticatedRoute exact path="/signup" component={SignUp} />
         <AuthenticatedRoute exact path="/login" component={SignIn} />
         <PrivateRoute exact path="/user/profile" component={Profile} />
+        <PrivateRoute exact path="/createcourse" component={CouresCreator} />
         <Route exact path="/videoPage" component={videoPage} />
       </Switch>
     </Router>

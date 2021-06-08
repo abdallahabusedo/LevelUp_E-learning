@@ -16,24 +16,30 @@ export default function Search() {
     const [loading, setloading] = useState(true)
 
     function getSearchResults() {
-        id.split("-").forEach(word => {
-            const ref = firebase.firestore().collection("courses").where('keywords', 'array-contains', word);
+      let coursesNames = {}
+      let words = id.split("-")
+        for(let i =0;i<words.length;i++){
+            console.log(words[i]);
+            const ref = firebase.firestore().collection("courses").where('keywords', 'array-contains', words[i]);
             ref.get().then((Snapshot) => {
-                setloading(false)
+     
                 if (Snapshot.empty) {
 
                     return;
                 }
                 const items = [];
                 Snapshot.forEach(doc => {
-                    items.push(doc);
-
-                });
-                setResults(items);
+                    if(!coursesNames[doc.data().name]){    
+                      items.push(doc);
+                      coursesNames[doc.data().name]=true;
+                    }
+                  });
+                  setResults(results.concat(items));
             });
-        })
-
-    }
+            setloading(false)
+        }
+      }
+    
     useEffect(() => {
 
         getSearchResults();

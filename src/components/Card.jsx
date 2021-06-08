@@ -22,7 +22,7 @@ export default function Card(props) {
 
                 <div class="product-image">
                    
-                    <img src="https://images.unsplash.com/photo-1606830733744-0ad778449672?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzl8fGNocmlzdG1hcyUyMHRyZWV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="" />
+                    <img src="https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/cosmetics/cosmeticsdesign-europe.com/article/2019/11/06/cosmetics-consultants-europe-to-launch-safety-assessment-training-course-2020/10338859-1-eng-GB/Cosmetics-Consultants-Europe-to-launch-safety-assessment-training-course-2020_wrbm_large.jpg" alt="" />
 
                     <a href={"http://localhost:3000/course/"+props.id}>
                     <div class="info">
