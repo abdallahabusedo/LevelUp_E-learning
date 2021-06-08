@@ -26,11 +26,13 @@ export default function CourseCreator(props) {
         let vidoesId = []
         const req = youtube.get('/playlistItems', {
             params: {
-                playlistId: playlistId
+                playlistId: playlistId,
+                maxResults: 50
             }
         });
         req.then(res => {
             res.data.items.map(video => vidoesId.push(video.contentDetails.videoId));
+            console.log( res.data.items)
         });
         return vidoesId;
     }

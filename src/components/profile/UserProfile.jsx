@@ -1,39 +1,45 @@
 import React from "react";
+import {useHistory} from "react-router-dom";
 import UserForm from "./UserForm";
 import { fireStore } from "../../services/firebase";
 import UserImage from "./UserImage";
+import {useAuth} from "../../services/authContext";
+import "./../../assets/styles/profile.css";
+const UserProfile = () => {
 
-const UserProfile = (props) => {
-  var userId = props.currentUser.uid ;
+  const { currentUser, logout }  = useAuth();
+  const history = useHistory();
+
   const AddOrEdit = (obj) => {
     fireStore
-      .collection("users").doc(userId)
-      .set (obj).catch( (err) => { console.log(err); });
+      .collection("users")
+      .doc(currentUser.uid)
+      .set(obj)
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
+  const handleLogOut = async () => {
+    await logout().then( () => {
+      history.push("/login");
+    });
+  }
 
   return (
     <>
-      <div className="container py-4">
-        <div className="p-10 mb-4 bg-light rounded-3">
-          <div className="container">
-            <h1 className="">Profile Page</h1>
-          </div>
-        </div>
+      <div>
+        <nav className="navbar navbar-expand-lg navbar_Color">
+          <a className="navbar-brand" href="#">
+            Profile Page
+          </a>
+        </nav>
 
-        <div className="row align-items-md-stretch">
-          <div className="col-md-5">
-            <div className="h-100 p-5 text-white bg-dark rounded-3">
-              <UserImage uid={userId} />
-            </div>
-          </div>
-          
-          <div className="col-md-7">
-            <div className="h-100 p-5 bg-light border rounded-3">
-              <UserForm AddOrEdit={AddOrEdit} />
-            </div>
-          </div>
-        </div>
+        <UserImage uid={currentUser.uid} />
+        <UserForm AddOrEdit={AddOrEdit} />
+      </div>
+      <div>
+        <button onClick={handleLogOut}>Sign Out</button>
       </div>
     </>
   );

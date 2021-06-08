@@ -1,100 +1,127 @@
-import React, { Component } from 'react';
+import React, { useState } from "react";
 import NavigationBar from "../../components/navComponent";
 
-import { Link } from 'react-router-dom';
+import { Link , useHistory} from "react-router-dom";
 
 import { fireStore } from "../../services/firebase";
-import { GoogleAuth, userAuth } from "../../services/Authentication";
+import { useAuth } from "../../services/authContext"
 
 import "../../assets/styles/Form.css";
-export default class SignIn extends Component {
+const SignIn = () => {
+  const {login , googleSign} = useAuth();
+  const history = useHistory();
+  const [loading, setLoading] = useState(false)
+  
+  const [data,setData] = useState({
+      email: "",
+      password: ""
+  });
+    
 
-  constructor(props)
-  {
-      super(props);
-      this.state = {
-          email:'',
-          password:'',
-      };
-  }
+  const handleChange = async (event) => {
+    let name = event.target.name,
+      value = event.target.value;
+    setData({ [name]: value });
+  };
 
-  handleChange = ( event ) => {
-      let name = event.target.name , value = event.target.value;
-      this.setState({ [name]:value } );
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  handleSubmit = ( event ) => {
-      event.preventDefault();
+    let { email, password } = useState;
+
+    setLoading(true)
+    if (event.target.name === "userAuth") {
+      await login(email, password)
+        .then(() => {
+          console.log("User Auth Success");
+          history.push("/user/profile");
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
+    } else if (event.target.name === "googleAuth") {
       
-      let {email , password} = this.state;
-      if( event.target.name === "userAuth") {
-          userAuth( email , password ).then( () => {
-              console.log("User Auth Success");
-              this.props.history.push('/user/profile');
-          })
-          .catch(err => {
-              alert(err.message);
-          });
-      } else if( event.target.name === "googleAuth") {
+      await googleSign().then((result) => {
+          console.log("Google Auth Success");
+          var ref = fireStore.collection("users");
 
-          GoogleAuth().then( (result) => {
-              console.log("Google Auth Success");
-              var ref = fireStore.collection("users");
-              
-              ref.get(result.user.uid).then((doc) => {
-                if (!doc.exists) {
-                  ref.doc(result.user.uid).set({
-                      username: result.user.displayName,
-                      profileImage: "",
-                      job: "",
-                      email: result.user.email,
-                      password: "Google Sign In",
-                      Bio: "",
-                      LinkGitHub: "",
-                      LinkLinkedIn: "",
-                  }).then( () => {
-                    this.props.history.push('/user/profile');
-                    //this.props.history.push("/");
-                  });
-                } else {
-                  this.props.history.push('/user/profile');
-                  //this.props.history.push("/");
-                }
-              });
-                
-          }).catch ( err => {
-              console.log( err.message );
+          ref.get(result.user.uid).then((doc) => {
+            if (!doc.exists) 
+              ref.doc(result.user.uid)
+                .set({
+                  username: result.user.displayName,
+                  profileImage: "",
+                  job: "",
+                  email: result.user.email,
+                  password: "Google Sign In",
+                  Bio: "",
+                  LinkGitHub: "",
+                  LinkLinkedIn: "",
+                })
           });
-      } 
-  } 
-
-  render() {
-    return (
-      <div className="form-container">
-        <NavigationBar/>
-        <h1> Login </h1>
-        <hr/>
-        <form name="userAuth" onSubmit={this.handleSubmit}>
-          <div className="form-group" onClick={this.handleSubmit}>
-            <button type="button" name="googleAuth" > <img src="https://www.iconfinder.com/data/icons/social-media-2210/24/Google-512.png" alt="" name="googleAuth"/> Continue with Google </button>
-          </div>
-          <div className="form-group">
-            <label>Email address</label>
-            <input type="email" required="" className="form-control" id="email" placeholder="Email" name="email" onChange={this.handleChange}/>
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input type="password" required="" className="form-control" id="password" placeholder="Password" name="password" onChange={this.handleChange}/>
-          </div>
-          <div className="form-actions">
-            <input type="submit" value="Sign In" />
-            <span>or</span><Link to="/"> forgot password</Link>
-          </div>
-          <div className="form-footer">
-            <span>Don't have an account </span><Link to="/signup">Register</Link>
-          </div>
-        </form>
-      </div>
-    )
+      }).catch((err) => {
+          console.log(err.message);
+      });
+      history.push("/user/profile");
+    }
+    setLoading(false);
   }
+
+  
+  return (
+    <div className="form-container">
+      <NavigationBar />
+      <h1> Login </h1>
+      <hr />
+      <form name="userAuth" onSubmit={handleSubmit}>
+        <div className="form-group" onClick={handleSubmit}>
+          <button type="button" name="googleAuth">
+            {" "}
+            <img
+              src="https://www.iconfinder.com/data/icons/social-media-2210/24/Google-512.png"
+              alt=""
+              name="googleAuth"
+            />{" "}
+            Continue with Google{" "}
+          </button>
+        </div>
+        <div className="form-group">
+          <label>Email address</label>
+          <input
+            type="email"
+            required=""
+            className="form-control"
+            id="email"
+            placeholder="Email"
+            name="email"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            required=""
+            className="form-control"
+            id="password"
+            placeholder="Password"
+            name="password"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-actions">
+          <input type="submit" value="Sign In" />
+          <span>or</span>
+          <Link to="/"> forgot password</Link>
+        </div>
+        <div className="form-footer">
+          <span>Don't have an account </span>
+          <Link to="/signup">Register</Link>
+        </div>
+      </form>
+    </div>
+  );
 }
+
+
+export default SignIn;

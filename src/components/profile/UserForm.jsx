@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { fireStore, auth } from "./../../services/firebase";
+import { useAuth } from "./../../services/authContext";
 
-export default function UserForm (props) {
-  
+export default function UserForm(props) {
+  const { currentUser } = useAuth();
   var [Info, setInfo] = useState({
     username: "",
     profileImage: "",
@@ -12,17 +13,21 @@ export default function UserForm (props) {
     Bio: "",
     LinkGitHub: "",
     LinkLinkedIn: "",
-    EducationPosition: ""
+    EducationPosition: "",
   });
 
   var [readOnly, setReadOnly] = useState(true);
-  var [Email_Password , setEmail_Password ] = useState(true);
+  var [Email_Password, setEmail_Password] = useState(true);
 
-  useEffect ( () => {
-      return fireStore.collection("users").doc(auth.currentUser.uid).get().then( doc => {
+  useEffect(() => {
+    return fireStore
+      .collection("users")
+      .doc(currentUser.uid)
+      .get()
+      .then((doc) => {
         if (doc.exists) {
-          setInfo( {     
-            username: doc.get("username") ,
+          setInfo({
+            username: doc.get("username"),
             profileImage: doc.get("profileImage"),
             job: doc.get("job"),
             email: doc.get("email"),
@@ -30,16 +35,14 @@ export default function UserForm (props) {
             Bio: doc.get("Bio"),
             LinkGitHub: doc.get("LinkGitHub"),
             LinkLinkedIn: doc.get("LinkLinkedIn"),
-            EducationPosition: doc.get("EducationPosition")
-          } );
+            EducationPosition: doc.get("EducationPosition"),
+          });
         }
-        
       });
-      
-  },[ setInfo ] );
+  }, [setInfo]);
 
   console.log(Info);
-  
+
   const handleInputChange = (e) => {
     let { name, value } = e.target;
 
@@ -57,10 +60,8 @@ export default function UserForm (props) {
   };
 
   const toggleEdit = () => {
-
     setReadOnly(false);
-    if( Info.password !== "Google Sign In")
-      setEmail_Password(false);
+    if (Info.password !== "Google Sign In") setEmail_Password(false);
   };
 
   return (
@@ -163,4 +164,4 @@ export default function UserForm (props) {
       </div>
     </form>
   );
-};
+}

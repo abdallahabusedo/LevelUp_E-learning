@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import NavigationBar from "../../components/navComponent";
-import "../../assets/styles/Search.css"
+import "../../assets/styles/Search.css";
 
-import 'firebase/firestore';
+import "firebase/firestore";
 
-import firebase from "../../services/firebase"
+import firebase from "../../services/firebase";
 import { useParams } from "react-router-dom";
 
-import Card from "../../components/Card"
+import Card from "../../components/Card";
 export default function Search() {
 
     let { id } = useParams();
@@ -58,4 +58,5 @@ export default function Search() {
             </div >
         </div >
     );
+ 
 }

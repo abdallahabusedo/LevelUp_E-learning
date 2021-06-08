@@ -1,48 +1,58 @@
-import React , { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./../../assets/styles/profile.css";
 import dummy from "./../../assets/Images/dummyprofile.jpg";
-import { storage , fireStore } from "./../../services/firebase";
+import { storage, fireStore } from "./../../services/firebase";
+import { useAuth } from "./../../services/authContext";
 
-export default function UserImage( props ) {
-  var userId = props.uid;
+export default function UserImage() {
 
-  const [userImage , setUserImage] = useState();
+  const { currentUser } = useAuth();
+  const [userImage, setUserImage] = useState();
 
-  useEffect ( () => {
-      return fireStore.collection("users").doc(userId).get().then( doc => {
+  useEffect(() => {
+    return fireStore
+      .collection("users")
+      .doc(currentUser.uid)
+      .get()
+      .then((doc) => {
         if (doc.exists) {
           var img = doc.get("profileImage");
-          if (img === "") 
-            setUserImage( dummy );
-          else
-            setUserImage( doc.get("profileImage") );
+          if (img === "") setUserImage(dummy);
+          else setUserImage(doc.get("profileImage"));
         }
       });
-    
-  },[ userId , setUserImage ] );
+  }, [currentUser.uid, setUserImage]);
 
   const metadata = {
-    contentType: 'image/jpg',
+    contentType: "image/jpg",
   };
 
   const getFile = () => {
     document.getElementById("file").click();
-  }
+  };
 
-  const updateIamge = async ( e ) => {
-  
-    var imgRef = storage.ref("Images").child(`${props.uid}/userImage`);
+  const updateIamge = async (e) => {
+    var imgRef = storage.ref("Images").child(`${currentUser.uid}/userImage`);
 
-    await imgRef.put(e.target.files[0],metadata);
-   
-    imgRef.getDownloadURL()
-          .then((url) => {
-            fireStore.collection("users").doc(userId)
-                     .update({
-                        profileImage: url
-                      }).then( () => { console.log("Image Uploaded"); });
-          }).catch( err => { console.log(err); });
-  }
+    await imgRef.put(e.target.files[0], metadata);
+
+    imgRef
+      .getDownloadURL()
+      .then((url) => {
+        fireStore
+          .collection("users")
+          .doc(currentUser.uid)
+          .update({
+            profileImage: url,
+          })
+          .then(() => {
+            console.log("Image Uploaded");
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div>
