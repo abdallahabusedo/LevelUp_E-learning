@@ -5,12 +5,7 @@ import firebase from "../../services/firebase";
 // import 'firebase/firestore';
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../services/authContext";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+
 // Make sure the client is loaded and sign-in is complete before calling this method.
 
 export default function Course(props) {
@@ -109,7 +104,7 @@ export default function Course(props) {
             }
           });
           console.log(myuser);
-          if (course[0]["instractorMail"] == myuser.email) {
+          if (course[0]["instractorMail"] === myuser.email) {
             setenrollbutton(
               <h4>
                 <span className="badge bg-light text-dark">
@@ -147,10 +142,10 @@ export default function Course(props) {
   useEffect(() => {
     getCourseData();
     // console.log(getplaylist())
-  }, []);
+  });
   useEffect(() => {
     console.log("reloding");
-    getenrollbutton();
+    return getenrollbutton();
   }, [course]);
 
   if (loading) {

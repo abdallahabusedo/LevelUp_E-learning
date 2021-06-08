@@ -10,7 +10,6 @@ import "../../assets/styles/Form.css";
 const SignIn = () => {
   const {login , googleSign} = useAuth();
   const history = useHistory();
-  const [loading, setLoading] = useState(false)
   
   const [data,setData] = useState({
       email: "",
@@ -27,9 +26,8 @@ const SignIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let { email, password } = useState;
+    let { email, password } = data;
 
-    setLoading(true)
     if (event.target.name === "userAuth") {
       await login(email, password)
         .then(() => {
@@ -57,14 +55,15 @@ const SignIn = () => {
                   Bio: "",
                   LinkGitHub: "",
                   LinkLinkedIn: "",
-                })
+                  Credentials: "Student"
+                });
           });
       }).catch((err) => {
           console.log(err.message);
       });
       history.push("/user/profile");
+      
     }
-    setLoading(false);
   }
 
   

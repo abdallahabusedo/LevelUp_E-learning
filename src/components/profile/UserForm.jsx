@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { fireStore } from "./../../services/firebase";
+import { useHistory } from "react-router-dom";
 import { useAuth } from "./../../services/authContext";
 
 export default function UserForm(props) {
-  const { currentUser } = useAuth();
+  const { currentUser , logout } = useAuth();
+  const history = useHistory();
   var [Info, setInfo] = useState({
     username: "",
     profileImage: "",
@@ -13,7 +15,7 @@ export default function UserForm(props) {
     Bio: "",
     LinkGitHub: "",
     LinkLinkedIn: "",
-    EducationPosition: "",
+    Credentials: ""
   });
 
   var [readOnly, setReadOnly] = useState(true);
@@ -26,6 +28,7 @@ export default function UserForm(props) {
       .get()
       .then((doc) => {
         if (doc.exists) {
+
           setInfo({
             username: doc.get("username"),
             profileImage: doc.get("profileImage"),
@@ -35,13 +38,11 @@ export default function UserForm(props) {
             Bio: doc.get("Bio"),
             LinkGitHub: doc.get("LinkGitHub"),
             LinkLinkedIn: doc.get("LinkLinkedIn"),
-            EducationPosition: doc.get("EducationPosition"),
+            Credentials: doc.get("Credentials") 
           });
         }
       });
-  }, [setInfo]);
-
-  console.log(Info);
+  }, [setInfo , currentUser ]);
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
@@ -62,6 +63,25 @@ export default function UserForm(props) {
   const toggleEdit = () => {
     setReadOnly(false);
     if (Info.password !== "Google Sign In") setEmail_Password(false);
+  };
+
+  const joinAsInstructor = (e) => {
+    e.preventDefault();
+    fireStore
+      .collection("users")
+      .doc(currentUser.uid)
+      .update({
+        Credentials:"Instructor"
+      }).then( () => {
+        window.location.reload();
+      })
+    
+  }
+
+  const handleLogOut = async () => {
+    await logout().then(() => {
+      history.push("/login");
+    });
   };
 
   return (
@@ -106,7 +126,6 @@ export default function UserForm(props) {
           </div>
         </div>
         <input
-          required
           className="form-control"
           placeholder="job"
           name="job"
@@ -147,6 +166,26 @@ export default function UserForm(props) {
         />
       </div>
 
+      <div className="form-group input-group textBoxMa">
+        <div className="input-group-prepend ">
+          <input
+            type="button"
+            className="form-control"
+            placeholder="Join Us"
+            name="joinus"
+            value="Join Us"
+            onClick={joinAsInstructor}
+          />     
+        </div>
+        <input
+          className="form-control"
+          placeholder="credintials"
+          name="credintials"
+          value={Info.Credentials}
+          readOnly
+        />
+      </div>
+
       <div className="form-group">
         <input
           required
@@ -161,6 +200,7 @@ export default function UserForm(props) {
           className="btn btn-primary btn-block"
           onClick={toggleEdit}
         />
+        <input type="button" id="btn-logout" onClick={handleLogOut} value="Sign Out" />
       </div>
     </form>
   );

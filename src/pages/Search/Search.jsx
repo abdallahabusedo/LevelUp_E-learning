@@ -42,7 +42,7 @@ export default function Search() {
 
   useEffect(() => {
     getSearchResults();
-  }, []);
+  });
   let cards = [];
 
   results.map((e, index) =>

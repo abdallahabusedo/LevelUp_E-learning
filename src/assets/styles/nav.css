@@ -12,8 +12,8 @@ li {
 }
 
 li a {
-  display: block;
-  color: white;
+  display: block ;
+  color: white ;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -36,7 +36,7 @@ li a {
 }
 
 .example {
-  margin: 20px 320px 0px 500px !important;
+  margin: 20px 130px 0px 500px !important;
   /* margin-right: 320px ;
   margin-left: 500px !important; */
 }

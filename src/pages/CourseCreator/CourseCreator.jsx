@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import NavigationBar from "../../components/navComponent";
 import "../../assets/styles/course.css"
 import firebase from "../../services/firebase"
 import "../../assets/styles/Form.css"
 import "../../assets/styles/coursecreator.css"
 // import 'firebase/firestore';
-import { useParams } from "react-router-dom";
-import CourseImage from '../../components/CourseImage';
+//import { useParams } from "react-router-dom";
+//import CourseImage from '../../components/CourseImage';
 import youtube from "../../services/youtubeplaylist";
-import url from 'url';
+//import url from 'url';
 import {useAuth} from "../../services/authContext";
 export default function CourseCreator(props) {
     // course data , loading state and found or not state

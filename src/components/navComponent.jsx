@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../assets/styles/nav.css";
 import LevelUPImage from "./../assets/Images/levelUP-removebg-preview.png";
 export default function NavigationBar(props) {
   const [searchVal, setSearchVal] = useState({ ser: "" });
   const hes = useHistory();
   const handleInputChange = (e) => {
-    let { name, value } = e.target;
+    let { value } = e.target.value;
 
     setSearchVal({
       ...searchVal,
@@ -14,7 +14,7 @@ export default function NavigationBar(props) {
     });
   };
   const handelSubmitSearch = (e) => {
-    if (searchVal.ser == "") hes.push("/");
+    if (searchVal.ser === "") hes.push("/");
     else {
       hes.push("/search/" + searchVal.ser.split(" ").join("-"));
       window.location.reload();

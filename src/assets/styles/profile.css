@@ -65,14 +65,31 @@ nav a {
 .navbar_Color {
   background-color: rgb(11, 170, 255) !important;
 }
+.form-footer span {
+  padding-left: 30px;
+}
+.form-actions span {
+  padding-left: 60px;
+}
 a {
-  color: white;
+  color: #4285f4;
   font-weight: bolder !important;
   font-size: 20px;
 }
 a:hover {
-  color: white;
+  color: #59c1c9;
 }
 .nav a {
   color: white;
 }
+
+#btn-logout {
+  width: 100%;
+  background-color: #4285f4;
+  color:white;
+}
+
+#btn-logout:hover {
+  background-color: #59c1c9;
+}
+
