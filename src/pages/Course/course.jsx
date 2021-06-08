@@ -176,7 +176,9 @@ export default function Course(props) {
             <div className="course-bio">
               <p>{course[0]["bio"]}</p>
             </div>
-
+            <div className="course-bio">
+              <p>Made by : {course[0]["madeby"]}</p>
+            </div>
             <div className="enrollment-button">{enrollbutton}</div>
           </div>
           <div className="course-info">

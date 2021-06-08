@@ -36,13 +36,13 @@ export default function Search() {
         });
         setResults(results.concat(items));
       });
-      setloading(false);
     }
   }
 
   useEffect(() => {
     getSearchResults();
-  });
+    setTimeout(() => setloading(false), 1000);
+  }, []);
   let cards = [];
 
   results.map((e, index) =>

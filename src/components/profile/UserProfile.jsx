@@ -6,14 +6,14 @@ import { useAuth } from "../../services/authContext";
 import "./../../assets/styles/profile.css";
 import NavigationBar from "./../navComponent";
 const UserProfile = () => {
-  const { currentUser  } = useAuth();
+  const { currentUser } = useAuth();
 
   const AddOrEdit = (obj) => {
     console.log(obj);
     fireStore
       .collection("users")
       .doc(currentUser.uid)
-      .set(obj)
+      .update(obj)
       .catch((err) => {
         console.log(err);
       });
@@ -25,9 +25,7 @@ const UserProfile = () => {
         <NavigationBar />
         <UserImage uid={currentUser.uid} />
         <UserForm AddOrEdit={AddOrEdit} />
-        
       </div>
-      
     </>
   );
 };

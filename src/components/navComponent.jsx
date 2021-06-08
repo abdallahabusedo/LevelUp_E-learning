@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "../assets/styles/nav.css";
+import { useAuth } from "./../services/authContext";
 import LevelUPImage from "./../assets/Images/levelUP-removebg-preview.png";
 export default function NavigationBar(props) {
   const [searchVal, setSearchVal] = useState({ ser: "" });
   const hes = useHistory();
   const handleInputChange = (e) => {
-    let { value } = e.target.value;
+    let { name, value } = e.target;
 
     setSearchVal({
       ...searchVal,
@@ -48,6 +49,9 @@ export default function NavigationBar(props) {
         </li>
         <li>
           <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <Link to="/mycourses">MyCourses</Link>
         </li>
       </ul>
     </div>

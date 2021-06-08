@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import NavigationBar from "../../components/navComponent";
 
-import { Link , useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { fireStore } from "../../services/firebase";
-import { useAuth } from "../../services/authContext"
+import { useAuth } from "../../services/authContext";
 
 import "../../assets/styles/Form.css";
 const SignIn = () => {
-  const {login , googleSign} = useAuth();
+  const { login, googleSign, currentUser } = useAuth();
   const history = useHistory();
-  
-  const [data,setData] = useState({
-      email: "",
-      password: ""
+
+  const [data, setData] = useState({
+    email: "",
+    password: "",
   });
-    
 
   const handleChange = async (event) => {
     let name = event.target.name,
@@ -38,35 +37,34 @@ const SignIn = () => {
           alert(err.message);
         });
     } else if (event.target.name === "googleAuth") {
-      
-      await googleSign().then((result) => {
+      await googleSign()
+        .then(() => {
           console.log("Google Auth Success");
           var ref = fireStore.collection("users");
 
-          ref.get(result.user.uid).then((doc) => {
-            if (!doc.exists) 
-              ref.doc(result.user.uid)
-                .set({
-                  username: result.user.displayName,
-                  profileImage: "",
-                  job: "",
-                  email: result.user.email,
-                  password: "Google Sign In",
-                  Bio: "",
-                  LinkGitHub: "",
-                  LinkLinkedIn: "",
-                  Credentials: "Student"
-                });
+          ref.get(currentUser.user.uid).then((doc) => {
+            if (!doc.exists)
+              ref.doc(currentUser.user.uid).set({
+                username: currentUser.user.displayName,
+                profileImage: "",
+                job: "",
+                email: currentUser.user.email,
+                password: "Google Sign In",
+                Bio: "",
+                LinkGitHub: "",
+                LinkLinkedIn: "",
+                Credentials: "Student",
+              });
+            console.log("doc", doc);
           });
-      }).catch((err) => {
+        })
+        .catch((err) => {
           console.log(err.message);
-      });
+        });
       history.push("/user/profile");
-      
     }
-  }
+  };
 
-  
   return (
     <div className="form-container">
       <NavigationBar />
@@ -120,7 +118,6 @@ const SignIn = () => {
       </form>
     </div>
   );
-}
-
+};
 
 export default SignIn;

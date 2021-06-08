@@ -5,7 +5,6 @@ import { storage, fireStore } from "./../../services/firebase";
 import { useAuth } from "./../../services/authContext";
 
 export default function UserImage() {
-
   const { currentUser } = useAuth();
   const [userImage, setUserImage] = useState();
 
@@ -47,6 +46,7 @@ export default function UserImage() {
           })
           .then(() => {
             console.log("Image Uploaded");
+            window.location.reload();
           });
       })
       .catch((err) => {
