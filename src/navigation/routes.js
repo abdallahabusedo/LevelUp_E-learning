@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 // Import Pages and Create Route for each page
-import Home from "../pages/Home/home";
+import Home from "../pages/Home/home.jsx";
 import SignUp from "../pages/AccountLogin/signup";
 import SignIn from "../pages/AccountLogin/signin";
 import Profile from "../pages/User/Profile";
