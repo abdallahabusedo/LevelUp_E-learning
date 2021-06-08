@@ -1,13 +1,7 @@
-import './assets/styles/App.css';
-
-import createRoutes from './navigation/routes.js';
+import createRoutes from "./navigation/routes.js";
 
 function App() {
-  return (
-    <div className="App">
-      {createRoutes()}
-    </div>
-  );
+  return <div className="App">{createRoutes()}</div>;
 }
 
 export default App;

@@ -1,4 +1,4 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import "./../../assets/styles/videoPage.css";
 import YoutubeEmbed from "./../../services/youtubeEmbed";
 class videoPage extends Component {
@@ -28,8 +28,8 @@ class videoPage extends Component {
     };
     this.handleClick = this.handleClick.bind(this);
   }
-    handleClick = (e) => {
-      console.log(e)
+  handleClick = (e) => {
+    console.log(e);
     this.setState({ embedid: e.target.value });
   };
   handleChange = (e) => {
@@ -42,9 +42,9 @@ class videoPage extends Component {
   };
   lectureButtonFunc = (videos) => {
     return videos.map((d, index) => {
-      console.log("d",  this.state.embedid);
+      console.log("d", this.state.embedid);
       return (
-          <button value={d.embedId} name="embedid" onClick={this.handleClick}>
+        <button value={d.embedId} name="embedid" onClick={this.handleClick}>
           {d.name}
         </button>
       );
