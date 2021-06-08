@@ -1,28 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { auth } from "../../services/firebase";
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { useAuth } from "../../services/authContext";
 import UserProfile from "./../../components/profile/UserProfile";
 import "./../../assets/styles/profile.css";
 const Profile = () => {
-  const [userState, setUserState] = useState({
-    currentUser: auth.currentUser,
-    loggedIn: false,
-  });
 
-  useEffect(() => {
-    return auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUserState({ currentUser: user, loggedIn: true });
-      } else {
-        setUserState({ currentUser: user, loggedIn: false });
-      }
-    });
-  }, []);
+  const { currentUser } = useAuth()
+  const history = useHistory()
 
-  if (userState.loggedIn) {
-    return <UserProfile currentUser={userState.currentUser} />;
-  } else {
-    return <></>;
-  }
+  return <UserProfile currentUser={currentUser} />;
+
 };
 
 export default Profile;

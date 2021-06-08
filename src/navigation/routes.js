@@ -14,22 +14,53 @@ import videoPage from "../pages/videoPage/videoPage.jsx";
 import Course from "../pages/Course/course.jsx";
 import CouresCreator from "../pages/CourseCreator/CourseCreator.jsx";
 import Search from "../pages/Search/Search";
+
+import { useAuth , AuthProvider } from "../services/authContext";
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { currentUser } = useAuth()
+
+  return (
+    <Route
+      {...rest}
+      render={props => {
+        return currentUser ? <Component {...props} /> : <Redirect to="/login" />
+      }}
+    ></Route>
+  )
+}
+
+const AuthenticatedRoute = ({ component: Component, ...rest }) => {
+  const { currentUser } = useAuth()
+
+  return (
+    <Route
+      {...rest}
+      render={props => {
+        return !currentUser ? <Component {...props} /> : <Redirect to="/user/profile" />
+      }}
+    ></Route>
+  )
+}
+
 const createRoutes = () => (
-  <Router>
-    <Switch>
-      <Route exact path="/">
-        <Redirect to="/home" />
-      </Route>
-      <Route exact path="/search/:id" component={Search} />
-      <Route exact path="/home" component={Home} />
-      <Route exact path="/course/:id" component={Course} />
-      <Route exact path="/createcourse" component={CouresCreator} />
-      <Route exact path="/signup" component={SignUp} />
-      <Route exact path="/signin" component={SignIn} />
-      <Route exact path="/user/profile" component={Profile} />
-      <Route exact path="/videoPage" component={videoPage} />
-    </Switch>
-  </Router>
+  <AuthProvider>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/home" />
+        </Route>
+        <Route exact path="/search/:id" component={Search} />
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/course/:id" component={Course} />
+        <Route exact path="/createcourse" component={CouresCreator} />
+        <AuthenticatedRoute exact path="/signup" component={SignUp} />
+        <AuthenticatedRoute exact path="/login" component={SignIn} />
+        <PrivateRoute exact path="/user/profile" component={Profile} />
+        <Route exact path="/videoPage" component={videoPage} />
+      </Switch>
+    </Router>
+  </AuthProvider>
 );
 
 export default createRoutes;

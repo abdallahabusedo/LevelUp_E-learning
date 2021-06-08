@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import "./../../assets/styles/profile.css";
 import dummy from "./../../assets/Images/dummyprofile.jpg";
 import { storage, fireStore } from "./../../services/firebase";
+import { useAuth } from "./../../services/authContext";
 
-export default function UserImage(props) {
-  var userId = props.uid;
+export default function UserImage() {
 
+  const { currentUser } = useAuth();
   const [userImage, setUserImage] = useState();
 
   useEffect(() => {
     return fireStore
       .collection("users")
-      .doc(userId)
+      .doc(currentUser.uid)
       .get()
       .then((doc) => {
         if (doc.exists) {
@@ -20,7 +21,7 @@ export default function UserImage(props) {
           else setUserImage(doc.get("profileImage"));
         }
       });
-  }, [userId, setUserImage]);
+  }, [currentUser.uid, setUserImage]);
 
   const metadata = {
     contentType: "image/jpg",
@@ -31,7 +32,7 @@ export default function UserImage(props) {
   };
 
   const updateIamge = async (e) => {
-    var imgRef = storage.ref("Images").child(`${props.uid}/userImage`);
+    var imgRef = storage.ref("Images").child(`${currentUser.uid}/userImage`);
 
     await imgRef.put(e.target.files[0], metadata);
 
@@ -40,7 +41,7 @@ export default function UserImage(props) {
       .then((url) => {
         fireStore
           .collection("users")
-          .doc(userId)
+          .doc(currentUser.uid)
           .update({
             profileImage: url,
           })

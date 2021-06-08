@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { fireStore, auth } from "./../../services/firebase";
+import { useAuth } from "./../../services/authContext";
 
 export default function UserForm(props) {
+  const { currentUser } = useAuth();
   var [Info, setInfo] = useState({
     username: "",
     profileImage: "",
@@ -20,7 +22,7 @@ export default function UserForm(props) {
   useEffect(() => {
     return fireStore
       .collection("users")
-      .doc(auth.currentUser.uid)
+      .doc(currentUser.uid)
       .get()
       .then((doc) => {
         if (doc.exists) {
