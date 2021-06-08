@@ -76,6 +76,10 @@ export default function Course(props) {
         );
       });
   }
+  //go watch 
+  function videowatch(){
+      props.history.push("/videoPage/"+id)
+  }
   //setenrollbutton
   function getenrollbutton() {
     if (!currentUser) {
@@ -118,7 +122,7 @@ export default function Course(props) {
             myuser.courses.includes(course[0]["name"])
           ) {
             setenrollbutton(
-              <button type="button" className="btn btn-dark ">
+              <button type="button" className="btn btn-dark " onClick={videowatch}>
                 watch content
               </button>
             );
