@@ -16,7 +16,6 @@ export default function NavigationBar(props) {
   const handelSubmitSearch = (e) => {
     if (searchVal.ser == "") hes.push("/");
     else {
-
       hes.push("/search/" + searchVal.ser.split(" ").join("-"));
       window.location.reload();
     }
@@ -41,7 +40,6 @@ export default function NavigationBar(props) {
             </button>
           </div>
         </li>
-
         <li>
           <Link to="/home">Home</Link>
         </li>
