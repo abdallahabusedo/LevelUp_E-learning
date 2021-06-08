@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fireStore, auth } from "./../../services/firebase";
+import { fireStore } from "./../../services/firebase";
 import { useAuth } from "./../../services/authContext";
 
 export default function UserForm(props) {

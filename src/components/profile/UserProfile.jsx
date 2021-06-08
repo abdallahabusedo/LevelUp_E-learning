@@ -1,13 +1,13 @@
 import React from "react";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import UserForm from "./UserForm";
 import { fireStore } from "../../services/firebase";
 import UserImage from "./UserImage";
-import {useAuth} from "../../services/authContext";
+import { useAuth } from "../../services/authContext";
 import "./../../assets/styles/profile.css";
+import NavigationBar from "./../navComponent";
 const UserProfile = () => {
-
-  const { currentUser, logout }  = useAuth();
+  const { currentUser, logout } = useAuth();
   const history = useHistory();
 
   const AddOrEdit = (obj) => {
@@ -21,20 +21,15 @@ const UserProfile = () => {
   };
 
   const handleLogOut = async () => {
-    await logout().then( () => {
+    await logout().then(() => {
       history.push("/login");
     });
-  }
+  };
 
   return (
     <>
       <div>
-        <nav className="navbar navbar-expand-lg navbar_Color">
-          <a className="navbar-brand" href="#">
-            Profile Page
-          </a>
-        </nav>
-
+        <NavigationBar />
         <UserImage uid={currentUser.uid} />
         <UserForm AddOrEdit={AddOrEdit} />
       </div>
