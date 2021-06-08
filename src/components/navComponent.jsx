@@ -7,16 +7,18 @@ export default function NavigationBar(props) {
   const hes = useHistory();
   const handleInputChange = (e) => {
     let { name, value } = e.target;
+
     setSearchVal({
       ...searchVal,
-      ser: value,
+      ser: value.toLowerCase(),
     });
   };
   const handelSubmitSearch = (e) => {
-    if (searchVal == "") hes.push("/home");
+    if (searchVal.ser == "") hes.push("/");
     else {
-      console.log(searchVal.ser.split(" ").join("-"));
+
       hes.push("/search/" + searchVal.ser.split(" ").join("-"));
+      window.location.reload();
     }
   };
   return (
