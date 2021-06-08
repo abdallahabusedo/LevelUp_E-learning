@@ -10,14 +10,13 @@ import Home from "../pages/Home/home.jsx";
 import SignUp from "../pages/AccountLogin/signup";
 import SignIn from "../pages/AccountLogin/signin";
 import Profile from "../pages/User/Profile";
-import VideoPage from "../pages/videoPage/videoPage.jsx";
+import VideoPage from "../pages/videoPage/VideoPage.jsx";
 import Course from "../pages/Course/course.jsx";
 import CouresCreator from "../pages/CourseCreator/CourseCreator.jsx";
 import Search from "../pages/Search/Search";
 
-import { useAuth , AuthProvider } from "../services/authContext";
+import { useAuth, AuthProvider } from "../services/authContext";
 import MyCourses from "../pages/mycourses/MyCourses";
-
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { currentUser } = useAuth();
@@ -68,8 +67,8 @@ const createRoutes = () => (
         <PrivateRoute exact path="/user/profile" component={Profile} />
         <PrivateRoute exact path="/createcourse" component={CouresCreator} />
         <PrivateRoute exact path="/mycourses" component={MyCourses} />
-      
-        <Route exact path="/videoPage/:id" component={VideoPage} />
+
+        <Route exact path="/VideoPage/:id" component={VideoPage} />
       </Switch>
     </Router>
   </AuthProvider>
