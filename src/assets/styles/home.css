@@ -19,3 +19,11 @@
   left: 100px;
   font-family: "Staatliches", cursive;
 }
+.card {
+  transition: 0.3s;
+}
+
+.card_image {
+  width: 100%;
+  border-radius: 0;
+}

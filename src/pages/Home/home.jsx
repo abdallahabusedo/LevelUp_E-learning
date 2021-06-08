@@ -2,14 +2,20 @@ import React, { Component } from "react";
 import NavigationBar from "../../components/navComponent";
 import homeBg from "./../../assets/Images/homeBG.jpg";
 import "./../../assets/styles/home.css";
+
 export default class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
+    const { items } = this.state;
     return (
       <div>
         <header className="page-header">
           <NavigationBar />
         </header>
-
         <div>
           <img src={homeBg} alt="Home" className="bg" />
           <h1 className="top-left">A large selection of courses</h1>
@@ -18,9 +24,7 @@ export default class Home extends Component {
             every month
           </p>
         </div>
-
         <h1>Students are viewing</h1>
-        
       </div>
     );
   }
