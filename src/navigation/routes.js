@@ -10,39 +10,48 @@ import Home from "../pages/Home/home";
 import SignUp from "../pages/AccountLogin/signup";
 import SignIn from "../pages/AccountLogin/signin";
 import Profile from "../pages/User/Profile";
-import videoPage from "../pages/videoPage/videoPage.jsx";
+import VideoPage from "../pages/videoPage/VideoPage.jsx";
 import Course from "../pages/Course/course.jsx";
 import CouresCreator from "../pages/CourseCreator/CourseCreator.jsx";
 import Search from "../pages/Search/Search";
 
 import { useAuth , AuthProvider } from "../services/authContext";
 import MyCourses from "../pages/mycourses/MyCourses";
+import { useAuth, AuthProvider } from "../services/authContext";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
 
   return (
     <Route
       {...rest}
-      render={props => {
-        return currentUser ? <Component {...props} /> : <Redirect to="/login" />
+      render={(props) => {
+        return currentUser ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
+        );
       }}
     ></Route>
-  )
-}
+  );
+};
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
 
   return (
     <Route
       {...rest}
-      render={props => {
-        return !currentUser ? <Component {...props} /> : <Redirect to="/user/profile" />
+      render={(props) => {
+        return !currentUser ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/user/profile" />
+        );
       }}
     ></Route>
-  )
-}
+  );
+};
 
 const createRoutes = () => (
   <AuthProvider>
@@ -60,6 +69,7 @@ const createRoutes = () => (
         <PrivateRoute exact path="/createcourse" component={CouresCreator} />
         <PrivateRoute exact path="/mycourses" component={MyCourses} />
         <Route exact path="/videoPage" component={videoPage} />
+        <Route exact path="/videoPage/:id" component={VideoPage} />
       </Switch>
     </Router>
   </AuthProvider>
