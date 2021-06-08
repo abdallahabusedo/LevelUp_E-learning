@@ -9,36 +9,39 @@ import { useParams } from "react-router-dom";
 
 import Card from "../../components/Card"
 export default function Search() {
-    
+
     let { id } = useParams();
-  
+
     const [results, setResults] = useState([])
     const [loading, setloading] = useState(true)
-    const ref = firebase.firestore().collection("courses").where('keywords', 'array-contains', id);
+
     function getSearchResults() {
+        id.split("-").forEach(word => {
+            const ref = firebase.firestore().collection("courses").where('keywords', 'array-contains', word);
+            ref.get().then((Snapshot) => {
+                setloading(false)
+                if (Snapshot.empty) {
 
-        ref.get().then((Snapshot) => {
-            setloading(false)
-            if (Snapshot.empty) {
+                    return;
+                }
+                const items = [];
+                Snapshot.forEach(doc => {
+                    items.push(doc);
 
-                return;
-            }
-            const items = [];
-            Snapshot.forEach(doc => {
-                items.push(doc);
-
+                });
+                setResults(items);
             });
-            setResults(items);
-        });
+        })
+
     }
     useEffect(() => {
 
         getSearchResults();
- 
-    },[]);
+
+    }, []);
     let cards = [];
 
-    results.map((e,index) => cards.push(<Card courseInfo={e.data()} id={e.id} key={index}></Card>));
+    results.map((e, index) => cards.push(<Card courseInfo={e.data()} id={e.id} key={index}></Card>));
     if (loading) {
         return (<div>loading</div>);
     }

@@ -14,15 +14,16 @@ import 'firebase/firestore';
 //     measurementId: "G-1N5DR43B1T"
 // };
 
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyBUxJBKjNK5SYPRH0pO8OT3jBkf1dVhfyQ",
-    authDomain: "lvlup-e2894.firebaseapp.com",
-    projectId: "lvlup-e2894",
-    storageBucket: "lvlup-e2894.appspot.com",
-    messagingSenderId: "1033867326442",
-    appId: "1:1033867326442:web:3bef29fb112bea234e3893",
-    measurementId: "G-1CP8NMGERN"
-  };
+  apiKey: "AIzaSyDobuBTPeK2TQ9kTuU0NJ4EZYS2VSqkYCk",
+  authDomain: "lvlup2.firebaseapp.com",
+  projectId: "lvlup2",
+  storageBucket: "lvlup2.appspot.com",
+  messagingSenderId: "812541653360",
+  appId: "1:812541653360:web:7158d51446ab0f69911fb5",
+  measurementId: "G-Z41X0QQXFB"
+};
 
 firebase.initializeApp(firebaseConfig);
 

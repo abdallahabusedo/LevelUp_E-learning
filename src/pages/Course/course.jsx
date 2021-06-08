@@ -4,18 +4,6 @@ import "../../assets/styles/course.css"
 import firebase from "../../services/firebase"
 // import 'firebase/firestore';
 import { useParams } from "react-router-dom";
-// import { getplaylist } from "../../services/youtubeplaylist";
-// import { google } from "googleapis";
-// function getplaylist() {
-//     google.youtube("v3").playlistItems.list({
-//         "part": [
-//             "contentDetails"
-//         ],
-//         "playlistId": "PL4cUxeGkcC9gC88BEo9czgyS72A3doDeM"
-//     }).then(res => {
-//         console.log(res);
-//     });
-// };
 
 
 // Make sure the client is loaded and sign-in is complete before calling this method.
@@ -35,7 +23,7 @@ export default function Course() {
 
     // retrive course data 
     function getCourseData() {
-        console.log(id)
+
 
 
         ref.where(firebase.firestore.FieldPath.documentId(), '==', id).get().then((Snapshot) => {
@@ -45,7 +33,7 @@ export default function Course() {
                 setLoading(false);
                 return;
             }
-
+            console.log("hi")
             const items = [];
             Snapshot.forEach(doc => {
                 items.push(doc.data())
@@ -54,6 +42,7 @@ export default function Course() {
 
             setCourse(items);
             setLoading(false);
+
 
 
 
