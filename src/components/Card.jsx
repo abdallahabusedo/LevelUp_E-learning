@@ -1,9 +1,25 @@
 import React from "react";
 import "../assets/styles/Card.css";
-
+import { Link, useHistory } from "react-router-dom";
+import c2 from "./../assets/Images/c2.jpg";
 export default function Card(props) {
   return (
-    <div>
+    <div className="row1">
+      <div className="column1">
+        <div className="card1">
+          <img src={c2} className="cardImage1" />
+          <h5>{props.courseInfo["name"]}</h5>
+          <p> {props.courseInfo["bio"]}</p>
+          <Link to={"/course/" + props.id}>
+            <button className="goCoBTN1">See the course page</button>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+/**
+ * <div>
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -28,5 +44,4 @@ export default function Card(props) {
         </div>
       </div>
     </div>
-  );
-}
+ */

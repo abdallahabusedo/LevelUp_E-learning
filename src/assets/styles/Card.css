@@ -135,3 +135,36 @@
 .bio {
   font-size: 10px;
 }
+
+.row1 {
+  margin: 0 auto !important;
+  width: 80% !important;
+}
+.card1 {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 100% !important;
+  padding: 16px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+.cardImage1 {
+  display: block;
+  width: 100% !important;
+  min-width: 100px !important;
+  margin: 0 auto !important;
+  border-radius: 0 !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Staatliches", cursive;
+}
+.goCoBTN1 {
+  width: 100% !important;
+  border: 1px solid white;
+  border-radius: 20px;
+  background-color: #0baaff;
+  color: white;
+}
