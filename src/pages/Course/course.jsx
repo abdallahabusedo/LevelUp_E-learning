@@ -67,7 +67,7 @@ export default function Course(props) {
         setenrollbutton(
           <button
             type="button"
-            className="btn btn-dark goCoBTN"
+            className="btn btn-dark goCoBTN3"
             onClick={enrolluser}
           >
             enroll
@@ -85,7 +85,7 @@ export default function Course(props) {
       setenrollbutton(
         <button
           type="button"
-          className="btn btn-dark goCoBTN"
+          className="btn btn-dark goCoBTN3"
           onClick={() => props.history.push("/login")}
         >
           login
@@ -123,7 +123,7 @@ export default function Course(props) {
             setenrollbutton(
               <button
                 type="button"
-                className="btn btn-dark goCoBTN"
+                className="btn btn-dark goCoBTN3"
                 onClick={videowatch}
               >
                 watch content
@@ -133,7 +133,7 @@ export default function Course(props) {
             setenrollbutton(
               <button
                 type="button"
-                className="btn btn-dark  goCoBTN"
+                className="btn btn-dark  goCoBTN3"
                 onClick={enrolluser}
               >
                 enroll
