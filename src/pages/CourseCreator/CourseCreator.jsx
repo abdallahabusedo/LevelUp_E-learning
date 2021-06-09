@@ -1,8 +1,8 @@
-import React, { useState , useEffect } from "react";
-import { useHistory} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import NavigationBar from "../../components/navComponent";
 import "../../assets/styles/course.css";
-import firebase , {fireStore} from "../../services/firebase";
+import firebase, { fireStore } from "../../services/firebase";
 import "../../assets/styles/Form.css";
 import "../../assets/styles/coursecreator.css";
 // import 'firebase/firestore';
@@ -21,17 +21,16 @@ export default function CourseCreator(props) {
   const { currentUser } = useAuth();
 
   useEffect(() => {
-
-    fireStore.collection("users").doc(currentUser.uid)
-    .onSnapshot((doc) => {
-
-      if(doc.exists) {
-        if(doc.data().Credentials === "Student")
-          history.push("/user/profile")
-      }
-    });
-      
-  }, [ currentUser ]);
+    fireStore
+      .collection("users")
+      .doc(currentUser.uid)
+      .onSnapshot((doc) => {
+        if (doc.exists) {
+          if (doc.data().Credentials === "Student")
+            history.push("/user/profile");
+        }
+      });
+  }, [currentUser]);
   function handleChange(event) {
     let name = event.target.name,
       value = event.target.value;

@@ -7,10 +7,9 @@ import NavigationBar from "./../../components/navComponent";
 export default function VideoPage(props) {
   let [videos, setVideos] = useState([]);
   let [embedid, setEmbedid] = useState("");
-
+  let [loading, setLoading] = useState(true);
   function handleClick(e) {
-    console.log(e);
-    setEmbedid((embedid = e.target.value));
+    setEmbedid(e.target.value);
   }
 
   let { id } = useParams();
@@ -18,12 +17,13 @@ export default function VideoPage(props) {
     return videos.map((d, index) => {
       console.log(d);
       return (
-        <a value={d} name="embedid" onClick={handleClick} className="abtn">
+        <button value={d} name="embedid" onClick={handleClick} className="abtn">
           {`lecture ${index + 1}`}
-        </a>
+        </button>
       );
     });
   }
+
   function fetchData() {
     const query = fireStore
       .collection("courses")
@@ -37,12 +37,14 @@ export default function VideoPage(props) {
       .catch((err) => {
         console.log(err);
       });
-    console.log(query);
   }
   useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
     fetchData();
-    console.log("asd", videos);
-  });
+  }, []);
+  if (loading) return <></>;
   if (videos) {
     return (
       <div>
