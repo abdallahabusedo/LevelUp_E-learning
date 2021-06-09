@@ -58,7 +58,7 @@ export default function MyCourses() {
       <header className="page-header">
         <NavigationBar />
       </header>
-      <h1>my courses</h1>
+      <h1 className="heading">my courses</h1>
       <br></br>
       <div className="results">{cards}</div>
     </div>
