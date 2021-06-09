@@ -1,56 +1,57 @@
-import React, { useState  } from 'react';
+import React, { useState } from "react";
 import NavigationBar from "../../components/navComponent";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { fireStore } from "./../../services/firebase";
-import { useAuth } from "../../services/authContext"
+import { useAuth } from "../../services/authContext";
 import "../../assets/styles/Form.css";
 const SignUp = () => {
-
-  const {authContext} = useAuth();
-  const [data,setData] = useState({
+  const { authContext } = useAuth();
+  const [data, setData] = useState({
     email: "",
     password: "",
     username: "",
     job: "",
   });
 
-  const handleChange = ( event ) => {
-      let name = event.target.name , value = event.target.value;
-      setData({ [name]:value } );
-  }
+  const handleChange = (event) => {
+    let name = event.target.name,
+      value = event.target.value;
+    setData({ [name]: value });
+  };
 
-  const handleSubmit = async ( event ) => {
-      event.preventDefault();
-      let { email, password, username, job} = data;
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    let { email, password, username, job } = data;
 
-      authContext.SignUp(email, password)
-        .then((result) => {
-          console.log("success");
-          fireStore
-            .collection("users")
-            .doc(result.user.uid)
-            .set({
-                username,
-                profileImage: "",
-                job,
-                email,
-                password,
-                Bio: "",
-                LinkGitHub: "",
-                LinkLinkedIn: "",
-                Credentials: "Student",
-            }).then(() => {
-              console.log("Sign Up Success");
-              this.props.history.push(`/user/profile`);    
-              //this.props.history.push(`/`); 
-            });
-          
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  }
+    authContext
+      .SignUp(email, password)
+      .then((result) => {
+        console.log("success");
+        fireStore
+          .collection("users")
+          .doc(result.user.uid)
+          .set({
+            username,
+            profileImage: "",
+            job,
+            email,
+            password,
+            Bio: "",
+            LinkGitHub: "",
+            LinkLinkedIn: "",
+            Credentials: "Student",
+          })
+          .then(() => {
+            console.log("Sign Up Success");
+            this.props.history.push(`/user/profile`);
+            //this.props.history.push(`/`);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="form-container">
@@ -108,6 +109,8 @@ const SignUp = () => {
         </div>
         <div className="form-actions">
           <input
+            className="btn btn-primary"
+            id="btn-logout"
             type="submit"
             value="Sign Up"
             name="userAuth"
@@ -116,11 +119,11 @@ const SignUp = () => {
         </div>
         <div className="form-footer">
           <span>Already have an account </span>
-          <Link to="/signin">Login</Link>
+          <Link to="/login">Login</Link>
         </div>
       </form>
     </div>
   );
-}
+};
 
 export default SignUp;

@@ -72,14 +72,18 @@ const SignIn = () => {
       <hr />
       <form name="userAuth" onSubmit={handleSubmit}>
         <div className="form-group" onClick={handleSubmit}>
-          <button type="button" name="googleAuth">
-            {" "}
+          <button
+            type="button"
+            name="googleAuth"
+            className="btn btn-primary"
+            id="btn-logout"
+          >
             <img
               src="https://www.iconfinder.com/data/icons/social-media-2210/24/Google-512.png"
               alt=""
               name="googleAuth"
-            />{" "}
-            Continue with Google{" "}
+            />
+            Continue with Google
           </button>
         </div>
         <div className="form-group">
@@ -107,7 +111,12 @@ const SignIn = () => {
           />
         </div>
         <div className="form-actions">
-          <input type="submit" value="Sign In" />
+          <input
+            type="submit"
+            className="btn btn-primary"
+            id="btn-logout"
+            value="Sign In"
+          />
           <span>or</span>
           <Link to="/"> forgot password</Link>
         </div>
