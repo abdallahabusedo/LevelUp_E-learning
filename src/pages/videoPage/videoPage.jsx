@@ -3,6 +3,7 @@ import "./../../assets/styles/videoPage.css";
 import YoutubeEmbed from "../../services/youtubeEmbed";
 import { fireStore } from "../../services/firebase";
 import { useParams } from "react-router-dom";
+import NavigationBar from "./../../components/navComponent";
 export default function VideoPage(props) {
   let [videos, setVideos] = useState([]);
   let [embedid, setEmbedid] = useState("");
@@ -17,9 +18,9 @@ export default function VideoPage(props) {
     return videos.map((d, index) => {
       console.log(d);
       return (
-        <button value={d} name="embedid" onClick={handleClick}>
+        <a value={d} name="embedid" onClick={handleClick} className="abtn">
           {`lecture ${index + 1}`}
-        </button>
+        </a>
       );
     });
   }
@@ -45,6 +46,7 @@ export default function VideoPage(props) {
   if (videos) {
     return (
       <div>
+        <NavigationBar />
         <div className="flex-container">
           <div className="d1">
             <YoutubeEmbed embedId={embedid} />
