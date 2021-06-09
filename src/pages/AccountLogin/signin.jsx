@@ -58,10 +58,13 @@ const SignIn = () => {
                 LinkLinkedIn: "",
                 Credentials: "Student",
               }).then( () => {
-                history.push("/user/profile");
+                //history.push("/user/profile");
               });
-            else 
-              history.push("/user/profile");
+            else {
+              //history.push("/user/profile");
+
+            }
+              
           });
         })
         .catch((err) => {

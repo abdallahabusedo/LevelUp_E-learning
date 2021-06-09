@@ -9,18 +9,17 @@ export default function UserImage() {
   const [userImage, setUserImage] = useState();
 
   useEffect(() => {
-    return fireStore
-      .collection("users")
-      .doc(currentUser.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          var img = doc.get("profileImage");
-          if (img === "") setUserImage(dummy);
-          else setUserImage(doc.get("profileImage"));
-        }
-      });
-  }, [currentUser.uid, setUserImage]);
+    fireStore.collection("users").doc(currentUser.uid)
+    .onSnapshot((doc) => {
+      if (doc.exists) {
+        var img = doc.data().profileImage;
+        if (img === "") setUserImage(dummy);
+        else setUserImage(doc.get("profileImage"));
+      }
+
+    });
+    
+  }, [currentUser, setUserImage]);
 
   const metadata = {
     contentType: "image/jpg",

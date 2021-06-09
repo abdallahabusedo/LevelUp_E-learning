@@ -15,6 +15,7 @@ import Course from "../pages/Course/course.jsx";
 import CouresCreator from "../pages/CourseCreator/CourseCreator.jsx";
 import Search from "../pages/Search/Search";
 
+import { fireStore } from "../services/firebase";
 import { useAuth, AuthProvider } from "../services/authContext";
 import MyCourses from "../pages/mycourses/MyCourses";
 
@@ -37,7 +38,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => {
   const { currentUser } = useAuth();
-
+  
   return (
     <Route
       {...rest}

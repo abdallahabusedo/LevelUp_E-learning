@@ -7,7 +7,6 @@ import "./../../assets/styles/profile.css";
 import NavigationBar from "./../navComponent";
 const UserProfile = () => {
   const { currentUser } = useAuth();
-
   const AddOrEdit = (obj) => {
     console.log(obj);
     fireStore
@@ -18,7 +17,7 @@ const UserProfile = () => {
         console.log(err);
       });
   };
-
+  
   return (
     <>
       <div id="profile">
