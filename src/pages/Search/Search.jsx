@@ -56,7 +56,7 @@ export default function Search() {
       <header className="page-header">
         <NavigationBar />
       </header>
-      <h1>search results</h1>
+      <h1 className="heading">search results</h1>
       <br></br>
       <div className="results">{cards}</div>
     </div>

@@ -1,5 +1,4 @@
 .results {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  gap: 10px;
+  display: flex;
+  flex-direction: row;
 }

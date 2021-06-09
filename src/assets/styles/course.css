@@ -1,25 +1,30 @@
 .course-wallpaper {
   width: 100%;
-  background-color: rgb(240, 220, 200);
-  /* color: white; */
-  /* display: inline-block; */
+  background-color: rgb(214, 214, 214);
   padding: 20px;
+  height: 60vh;
+  background-image: url("https://assets.kpmg/content/dam/kpmg/in/images/2017/05/Online-Education-1082X547.png/jcr:content/renditions/original");
+  background-size: 100%;
 }
 .course-bio {
   padding-top: 8px;
   font-size: 20px;
   text-align: left;
-  padding-left: 10%;
+  padding-left: 8%;
+  color: white;
 }
 .course-name {
+  margin-top: 50px !important;
   text-align: left;
-  padding-left: 10%;
+  padding-left: 8%;
   font-size: 40px;
+  color: white;
+  font-family: "Staatliches", cursive;
 }
 .enrollment-button {
-  padding-right: 10%;
+  padding-left: 8%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 * {
@@ -36,4 +41,22 @@
 .not-found {
   font-size: 50px;
   font-weight: bold;
+}
+.goCoBTN {
+  margin-top: 100px !important;
+  width: 20% !important;
+  border: 1px solid white;
+  border-radius: 20px;
+  background-color: #0baaff;
+  color: white;
+  font-size: 25px !important;
+  border-radius: 20px;
+}
+.heading {
+  font-family: "Staatliches", cursive;
+  margin-top: 50px !important;
+  text-align: center;
+}
+.heading2 {
+  text-align: center;
 }

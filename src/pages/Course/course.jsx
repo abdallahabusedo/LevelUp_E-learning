@@ -65,7 +65,11 @@ export default function Course(props) {
         myuser.courses.push(course[0]["name"]);
         users.doc(userid).set(myuser);
         setenrollbutton(
-          <button type="button" className="btn btn-dark " onClick={enrolluser}>
+          <button
+            type="button"
+            className="btn btn-dark goCoBTN"
+            onClick={enrolluser}
+          >
             enroll
           </button>
         );
@@ -81,7 +85,7 @@ export default function Course(props) {
       setenrollbutton(
         <button
           type="button"
-          className="btn btn-dark "
+          className="btn btn-dark goCoBTN"
           onClick={() => props.history.push("/login")}
         >
           login
@@ -119,7 +123,7 @@ export default function Course(props) {
             setenrollbutton(
               <button
                 type="button"
-                className="btn btn-dark "
+                className="btn btn-dark goCoBTN"
                 onClick={videowatch}
               >
                 watch content
@@ -129,7 +133,7 @@ export default function Course(props) {
             setenrollbutton(
               <button
                 type="button"
-                className="btn btn-dark "
+                className="btn btn-dark  goCoBTN"
                 onClick={enrolluser}
               >
                 enroll
@@ -182,15 +186,8 @@ export default function Course(props) {
             <div className="enrollment-button">{enrollbutton}</div>
           </div>
           <div className="course-info">
-            <h4>course content</h4>
-            <p>{course[0]["content"]}</p>
-            <div className="course-instractors">
-              {
-                // course[0]["instructors"].map((instructor) => {
-                //     return <h4>{instructor}</h4>
-                // })
-              }
-            </div>
+            <h1 className="heading">course content</h1>
+            <p className="heading2">{course[0]["content"]}</p>
           </div>
         </div>
       </section>
