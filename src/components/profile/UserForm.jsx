@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fireStore } from "./../../services/firebase";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "./../../services/authContext";
 
 export default function UserForm(props) {
@@ -208,6 +208,17 @@ export default function UserForm(props) {
           onClick={handleLogOut}
           value="Sign Out"
         />
+        <Link
+          to="/createcourse"
+          className={Info.Credentials == "Instructor" ? "display" : "hide"}
+        >
+          <input
+            className="btn btn-primary"
+            type="button"
+            id="btn-logout"
+            value="Create Course"
+          />
+        </Link>
       </div>
     </form>
   );

@@ -100,3 +100,9 @@ a:hover {
 #btn-logout:hover {
   background-color: #59c1c9;
 }
+.hide {
+  display: none;
+}
+.display {
+  display: block;
+}
