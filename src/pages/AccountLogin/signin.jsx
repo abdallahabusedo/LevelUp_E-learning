@@ -8,7 +8,7 @@ import { useAuth } from "../../services/authContext";
 
 import "../../assets/styles/Form.css";
 const SignIn = () => {
-  const { login, googleSign, currentUser } = useAuth();
+  const { login, googleSign } = useAuth();
   const history = useHistory();
 
   const [data, setData] = useState({
@@ -38,30 +38,35 @@ const SignIn = () => {
         });
     } else if (event.target.name === "googleAuth") {
       await googleSign()
-        .then(() => {
+        .then( async (result) => {
           console.log("Google Auth Success");
           var ref = fireStore.collection("users");
 
-          ref.get(currentUser.user.uid).then((doc) => {
+          ref.doc(result.user.uid).get().then((doc) => {
+            console.log(doc.exists,result.user.uid)
+            
             if (!doc.exists)
-              ref.doc(currentUser.user.uid).set({
-                username: currentUser.user.displayName,
+              
+              ref.doc(result.user.uid).set({
+                username: result.user.displayName,
                 profileImage: "",
                 job: "",
-                email: currentUser.user.email,
+                email: result.user.email,
                 password: "Google Sign In",
                 Bio: "",
                 LinkGitHub: "",
                 LinkLinkedIn: "",
                 Credentials: "Student",
+              }).then( () => {
+                history.push("/user/profile");
               });
-            console.log("doc", doc);
+            else 
+              history.push("/user/profile");
           });
         })
         .catch((err) => {
           console.log(err.message);
         });
-      history.push("/user/profile");
     }
   };
 

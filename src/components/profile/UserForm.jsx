@@ -4,7 +4,9 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "./../../services/authContext";
 
 export default function UserForm(props) {
+  
   const { currentUser, logout } = useAuth();
+  console.log(currentUser.uid)
   const history = useHistory();
   var [Info, setInfo] = useState({
     username: "",
@@ -27,6 +29,7 @@ export default function UserForm(props) {
       .doc(currentUser.uid)
       .get()
       .then((doc) => {
+        
         if (doc.exists) {
           setInfo({
             username: doc.get("username"),
@@ -39,9 +42,9 @@ export default function UserForm(props) {
             LinkLinkedIn: doc.get("LinkLinkedIn"),
             Credentials: doc.get("Credentials"),
           });
-        }
+        } 
       });
-  }, [setInfo, currentUser]);
+  }, [setInfo,currentUser.email]);
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
@@ -178,8 +181,8 @@ export default function UserForm(props) {
         </div>
         <input
           className="form-control"
-          placeholder="credintials"
-          name="credintials"
+          placeholder="credentials"
+          name="credentials"
           value={Info.Credentials}
           readOnly
         />
