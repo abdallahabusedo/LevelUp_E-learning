@@ -169,7 +169,7 @@ export default function UserForm(props) {
         <div className="input-group-prepend ">
           <input
             type="button"
-            className="form-control"
+            className="userIcon"
             placeholder="Join Us"
             name="joinus"
             value="Join Us"
@@ -190,16 +190,19 @@ export default function UserForm(props) {
           required
           type="submit"
           value="Save"
-          className="btn btn-primary btn-block"
+          id="btn-logout"
+          className="btn btn-primary"
         />
         <input
           required
           type="button"
           value="edit"
-          className="btn btn-primary btn-block"
+          className="btn btn-primary"
+          id="btn-logout"
           onClick={toggleEdit}
         />
         <input
+          className="btn btn-primary"
           type="button"
           id="btn-logout"
           onClick={handleLogOut}
