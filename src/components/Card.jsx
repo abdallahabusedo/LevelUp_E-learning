@@ -1,13 +1,13 @@
 import React from "react";
 import "../assets/styles/Card.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import c2 from "./../assets/Images/c2.jpg";
 export default function Card(props) {
   return (
     <div className="row1">
       <div className="column1">
         <div className="card1">
-          <img src={c2} className="cardImage1" />
+          <img src={c2} className="cardImage1" alt="" />
           <h5>{props.courseInfo["name"]}</h5>
           <p> {props.courseInfo["bio"]}</p>
           <Link to={"/course/" + props.id}>
