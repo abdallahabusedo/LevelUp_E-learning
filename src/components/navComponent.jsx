@@ -14,6 +14,7 @@ export default function NavigationBar(props) {
       ser: value.toLowerCase(),
     });
   };
+  const { currentUser } = useAuth();
   const handelSubmitSearch = (e) => {
     if (searchVal.ser === "") hes.push("/");
     else {
@@ -21,6 +22,7 @@ export default function NavigationBar(props) {
       window.location.reload();
     }
   };
+
   return (
     <div className="navbar-menu">
       <ul id="navbar-list">
@@ -45,13 +47,24 @@ export default function NavigationBar(props) {
           <Link to="/home">Home</Link>
         </li>
         <li>
-          <Link to="/signup">Sign up</Link>
+          <Link to="/signup" className={currentUser ? "dd" : "hh"}>
+            Sign up
+          </Link>
         </li>
         <li>
-          <Link to="/login">Login</Link>
+          <Link to="/login" className={currentUser ? "dd" : "hh"}>
+            Login
+          </Link>
         </li>
         <li>
-          <Link to="/mycourses">MyCourses</Link>
+          <Link to="/mycourses" className={currentUser ? "hh" : "dd"}>
+            MyCourses
+          </Link>
+        </li>
+        <li>
+          <Link to="/user/profile" className={currentUser ? "hh" : "dd"}>
+            Profile
+          </Link>
         </li>
       </ul>
     </div>
