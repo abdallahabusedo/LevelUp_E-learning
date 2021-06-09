@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import NavigationBar from "../../components/navComponent";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { fireStore } from "./../../services/firebase";
 import { useAuth } from "../../services/authContext";
 import "../../assets/styles/Form.css";
 const SignUp = () => {
-  const { authContext } = useAuth();
+  const { signup } = useAuth();
+  const history = useHistory();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -15,18 +16,19 @@ const SignUp = () => {
   });
 
   const handleChange = (event) => {
-    let name = event.target.name,
-      value = event.target.value;
-    setData({ [name]: value });
+    let {name,value} = event.target;
+    setData({ 
+      ...data,
+      [name]: value 
+    });
+    console.log(data)
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     let { email, password, username, job } = data;
 
-    authContext
-      .SignUp(email, password)
-      .then((result) => {
+    signup(email, password).then( result => {
         console.log("success");
         fireStore
           .collection("users")
@@ -44,7 +46,7 @@ const SignUp = () => {
           })
           .then(() => {
             console.log("Sign Up Success");
-            this.props.history.push(`/user/profile`);
+            history.push(`/user/profile`);
             //this.props.history.push(`/`);
           });
       })

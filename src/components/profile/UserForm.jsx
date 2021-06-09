@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fireStore , auth } from "./../../services/firebase";
+import { fireStore } from "./../../services/firebase";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "./../../services/authContext";
 
@@ -8,7 +8,6 @@ export default function UserForm(props) {
   const { currentUser, logout } = useAuth();
   const [loading, setloading] = useState(true);
 
-  console.log(currentUser.uid)
   const history = useHistory();
   var [Info, setInfo] = useState({
     username: "",
@@ -219,7 +218,7 @@ export default function UserForm(props) {
           />
           <Link
             to="/createcourse"
-            className={Info.Credentials == "Instructor" ? "display" : "hide"}
+            className={Info.Credentials === "Instructor" ? "display" : "hide"}
           >
             <input
               className="btn btn-primary"

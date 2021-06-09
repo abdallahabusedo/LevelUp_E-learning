@@ -17,9 +17,11 @@ const SignIn = () => {
   });
 
   const handleChange = async (event) => {
-    let name = event.target.name,
-      value = event.target.value;
-    setData({ [name]: value });
+    let {name,value} = event.target;
+    setData({ 
+      ...data,
+      [name]: value 
+    });
   };
 
   const handleSubmit = async (event) => {
