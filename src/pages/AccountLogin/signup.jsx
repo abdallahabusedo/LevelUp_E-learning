@@ -21,7 +21,6 @@ const SignUp = () => {
       ...data,
       [name]: value 
     });
-    console.log(data)
   };
 
   const handleSubmit = async (event) => {
@@ -51,7 +50,7 @@ const SignUp = () => {
           });
       })
       .catch((err) => {
-        console.log(err);
+        alert(err.message);
       });
   };
 

@@ -3,7 +3,7 @@ import NavigationBar from "../../components/navComponent";
 
 import { Link, useHistory } from "react-router-dom";
 
-import { fireStore } from "../../services/firebase";
+import { fireStore , auth } from "../../services/firebase";
 import { useAuth } from "../../services/authContext";
 
 import "../../assets/styles/Form.css";
@@ -23,6 +23,17 @@ const SignIn = () => {
       [name]: value 
     });
   };
+
+  const forgotPassword = (Email) => {
+      console.log(Email)
+      auth.sendPasswordResetEmail(Email)
+        .then( () => {
+            alert('Please check your email...')
+        }).catch( (e) => {
+            console.log(e)
+        }) 
+   
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -70,7 +81,7 @@ const SignIn = () => {
           });
         })
         .catch((err) => {
-          console.log(err.message);
+          alert(err.message);
         });
     }
   };
@@ -128,7 +139,10 @@ const SignIn = () => {
             value="Sign In"
           />
           <span>or</span>
-          <Link to="/"> forgot password</Link>
+          <Link to="#" onClick={ (e) => {
+            e.preventDefault();
+            forgotPassword(data.email)
+          }}> forgot password</Link>
         </div>
         <div className="form-footer">
           <span>Don't have an account </span>
