@@ -5,11 +5,11 @@ import "../../assets/styles/Search.css";
 import "firebase/firestore";
 
 import firebase from "../../services/firebase";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { useAuth } from "../../services/authContext";
 import Card from "../../components/Card";
 export default function MyCourses() {
-  let { id } = useParams();
+  // let { id } = useParams();
 
   let [results, setResults] = useState([]);
 

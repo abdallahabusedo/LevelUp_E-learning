@@ -7,7 +7,7 @@ export default function NavigationBar(props) {
   const [searchVal, setSearchVal] = useState({ ser: "" });
   const hes = useHistory();
   const handleInputChange = (e) => {
-    let { name, value } = e.target;
+    let { value } = e.target;
 
     setSearchVal({
       ...searchVal,

@@ -210,7 +210,7 @@ export default function UserForm(props) {
         />
         <Link
           to="/createcourse"
-          className={Info.Credentials == "Instructor" ? "display" : "hide"}
+          className={Info.Credentials === "Instructor" ? "display" : "hide"}
         >
           <input
             className="btn btn-primary"
